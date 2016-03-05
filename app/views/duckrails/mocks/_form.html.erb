@@ -1,0 +1,12 @@
+<%= simple_form_for @mock do |form| %>
+  <%= form.input :name %>
+  <%= form.input :description %>
+  <%= form.input :method %>
+  <%= form.input :status %>
+  <%= form.input :route_path %>
+  <%= form.input :content_type %>
+  <%= form.input :body_type %>
+  <%= form.input :content %>
+
+  <%= form.submit 'Save', class: 'button' %>
+<% end %>

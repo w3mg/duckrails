@@ -1,12 +1,55 @@
 <%= simple_form_for @mock do |form| %>
-  <%= form.input :name %>
-  <%= form.input :description %>
-  <%= form.input :method %>
-  <%= form.input :status %>
-  <%= form.input :route_path %>
-  <%= form.input :content_type %>
-  <%= form.input :body_type %>
-  <%= form.input :content %>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :name %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :description, input_html: { class: 'short' } %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :route_path %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :method, collection: available_http_methods %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :status %>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 medium-6 columns">
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <%= form.input :body_type, collection: available_body_types %>
+        </div>
+
+        <div class="small-12 medium-6 columns">
+          <%= form.input :content_type, collection: available_mime_types %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :content, input_html: { class: 'tall' } %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <%= form.submit 'Save', class: 'button' %>
 <% end %>

@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     resources :mocks
   end
 
-  Duckrails::Router.register_mocks
+  Duckrails::Router.load_mock_routes!
 end

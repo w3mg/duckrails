@@ -1,43 +1,62 @@
-<table>
-    <thead>
-        <th>Method</th>
-        <th>Route</th>
-        <td>Actions</td>
-    <thead>
+<% if @mocks.empty? %>
+  <div class="alert-box warning">
+    No mocks. The duck is lonely.
+  </div>
+<% else %>
+  <table class="mocks">
+      <thead>
+          <th>Name</th>
+          <th>Method</th>
+          <th>Route</th>
+          <td>Actions</td>
+      <thead>
 
-    <tbody>
-      <% @mocks.each do |mock| %>
-        <tr>
-          <td>
-            <%= mock.method %>
-          </td>
+      <tbody>
+        <% @mocks.each do |mock| %>
+          <tr>
+            <td>
+              <%= mock.name %>
+            </td>
 
-          <td>
-            <%= mock.route_path %>
-          </td>
+            <td>
+              <%= mock.method %>
+            </td>
 
-          <td>
-            <%= link_to edit_duckrails_mock_path(mock) do %>
-              <i class="fa fa-edit"></i>
-            <% end %>
+            <td>
+              <%= mock.route_path %>
+            </td>
 
-            <%= link_to duckrails_mock_path(mock), method: :delete,
-                                         data: {
-                                           confirm: 'Are you sure you want to delete this mock?'
-                                         } do %>
-              <i class="fa fa-remove"></i>
-            <% end %>
-          </td>
-        </tr>
+            <td class="actions">
+              <%= link_to edit_duckrails_mock_path(mock), class: 'button tiny' do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+
+              <%= link_to duckrails_mock_path(mock), method: :delete,
+                                           data: {
+                                             confirm: 'Are you sure you want to delete this mock?'
+                                           }, class: 'button tiny' do %>
+                <i class="fa fa-remove"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <%= paginate @mocks %>
+    </div>
+  </div>
+<% end %>
+
+<div class="page-actions">
+  <div class="row">
+    <div class="small-12 columns">
+      <%= link_to new_duckrails_mock_path, class: 'button' do %>
+        <i class="fa fa-new"></i>
+        <span>Create new mock</span>
       <% end %>
-    </tbody>
-</table>
-
-<div class="row">
-  <div class="small-12 columns">
-    <%= link_to new_duckrails_mock_path, class: 'button' do %>
-      <i class="fa fa-new"></i>
-      <span>Create new mock</span>
-    <% end %>
+    </div>
   </div>
 </div>

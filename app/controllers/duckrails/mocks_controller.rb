@@ -4,7 +4,7 @@ module Duckrails
     after_filter :reload_routes, only: [:update, :create, :destroy]
 
     def index
-      @mocks = Duckrails::Mock.all
+      @mocks = Duckrails::Mock.page params[:page]
     end
 
     def edit

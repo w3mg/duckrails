@@ -51,5 +51,29 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="small-12 columns">
+      <h3>Headers</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns mock-headers">
+      <div class="right">
+        <%= link_to_add_association 'Add header',
+                                    form,
+                                    :headers,
+                                    data: {
+                                      association_insertion_method: 'append',
+                                      association_insertion_node: '.mock-headers'
+                                    } %>
+      </div>
+      <%= form.simple_fields_for :headers do |header_fields| %>
+        <%= render partial: 'header_fields', locals: { f: header_fields } %>
+      <% end %>
+
+    </div>
+  </div>
+
   <%= form.submit 'Save', class: 'button' %>
 <% end %>

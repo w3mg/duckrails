@@ -63,7 +63,11 @@ module Duckrails
                                              :content,
                                              :method,
                                              :content_type,
-                                             :route_path)
+                                             :route_path,
+                                             headers_attributes: [:id,
+                                                                  :name,
+                                                                  :value,
+                                                                  :_destroy])
     end
 
     def load_mock

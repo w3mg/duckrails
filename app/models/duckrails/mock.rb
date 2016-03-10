@@ -3,6 +3,8 @@ class Duckrails::Mock < ActiveRecord::Base
   BODY_TYPE_STATIC = 'static'
 
   has_many :headers
+  accepts_nested_attributes_for :headers, allow_destroy: true, reject_if: :all_blank
+
   has_one :body
 
   validates :status, presence: true

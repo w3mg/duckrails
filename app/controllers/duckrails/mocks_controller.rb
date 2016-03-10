@@ -49,6 +49,10 @@ module Duckrails
 
       body = mock.dynamic? ? erubify(mock.content) : mock.content
 
+      mock.headers.each do |header|
+        response.headers[header.name] = header.value
+      end
+
       render body: body, content_type: mock.content_type, status: mock.status
     end
 

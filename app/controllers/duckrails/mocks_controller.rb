@@ -35,6 +35,9 @@ module Duckrails
     end
 
     def destroy
+      @mock.delete
+      Duckrails::Router.unregister_mock @mock
+      redirect_to duckrails_mocks_path, flash: { info: "Mock '#{@mock.name}' was deleted successfully." }
     end
 
     # This is the one and only action mapped to each mock route

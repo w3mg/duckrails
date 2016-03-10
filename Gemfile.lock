@@ -41,6 +41,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.2)
+    cocoon (1.2.8)
     concurrent-ruby (1.0.1)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -59,6 +60,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -152,9 +156,11 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  cocoon
   font-awesome-rails
   foundation-rails
   jquery-rails
+  kaminari
   mysql2
   rails (= 4.2.5.2)
   rspec-rails (~> 3.0)

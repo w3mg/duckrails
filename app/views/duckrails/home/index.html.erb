@@ -1,2 +1,17 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Mock the Universe</h1>
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    <%= link_to duckrails_mocks_path, class: 'button expand' do %>
+      <i class="fa fa-street-view"></i>
+      <span>View all mocks</span>
+    <% end %>
+  </div>
+
+  <div class="small-12 medium-4 columns end">
+    <%= link_to new_duckrails_mock_path, class: 'button expand' do %>
+      <i class="fa fa-plus"></i>
+      <span>Create new mock</span>
+    <% end %>
+  </div>
+</div>

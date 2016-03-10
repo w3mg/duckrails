@@ -1,3 +1,5 @@
+require 'duckrails/router'
+
 module Duckrails
   class MocksController < ApplicationController
     before_filter :load_mock, only: [:edit, :update, :destroy]
@@ -54,8 +56,12 @@ module Duckrails
     protected
     #########
 
+    def register_mock
+      Duckrails::Router.register_mock @mock
+    end
+
     def reload_routes
-      Duckrails::Router.reload
+      Duckrails::Application.routes_reloader.reload!
     end
 
     def mock_params

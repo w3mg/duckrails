@@ -1,79 +1,114 @@
-<%= simple_form_for @mock do |form| %>
-  <div class="row">
-    <div class="small-12 medium-6 columns">
+<%= simple_form_for @mock, html: { class: 'mock-form' } do |form| %>
+  <ul class="tabs" data-tab>
+    <li class="tab-title active"><a href="#panel1">General</a></li>
+    <li class="tab-title"><a href="#panel2">Response body</a></li>
+    <li class="tab-title"><a href="#panel3">Headers</a></li>
+    <li class="tab-title"><a href="#panel4">Advanced</a></li>
+  </ul>
+
+  <div class="tabs-content">
+    <div class="content active" id="panel1">
+      <p>General mock properties</p>
+
       <div class="row">
         <div class="small-12 columns">
-          <%= form.input :name %>
+          <%= form.input :name, hint: 'Enter a name for this mock' %>
         </div>
       </div>
 
       <div class="row">
         <div class="small-12 columns">
-          <%= form.input :description, input_html: { class: 'short' } %>
+          <%= form.input :description, input_html: { class: 'short' }, hint: 'Enter a description' %>
         </div>
       </div>
 
-      <div class="row">
-        <div class="small-12 columns">
-          <%= form.input :route_path %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="small-12 columns">
-          <%= form.input :method, collection: available_http_methods %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="small-12 columns">
-          <%= form.input :status %>
-        </div>
-      </div>
-    </div>
-
-    <div class="small-12 medium-6 columns">
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <%= form.input :body_type, collection: available_body_types %>
+          <%= form.input :method, collection: available_http_methods, hint: 'Choose the method that matches this mock' %>
         </div>
-
         <div class="small-12 medium-6 columns">
-          <%= form.input :content_type, collection: available_mime_types %>
+          <%= form.input :status, hint: 'Enter the HTTP status code of this mock\'s response' %>
         </div>
       </div>
 
       <div class="row">
         <div class="small-12 columns">
-          <%= form.input :content, input_html: { class: 'tall' } %>
+          <%= form.input :route_path, hint: 'Enter the route you want to mock. You can use :blah and get the values as parameters' %>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="small-12 columns">
-      <h3>Headers</h3>
+    <div class="content" id="panel2">
+      <p>Response body properties</p>
+
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <%= form.input :body_type, collection: available_script_types, include_blank: true, hint: 'Choose the type of the response body' %>
+        </div>
+
+        <div class="small-12 medium-6 columns">
+          <%= form.input :content_type, collection: available_mime_types, include_blank: true, hint: 'Choose the content type to be set to the response' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :body_content, input_html: { class: 'tall' }, hint: 'Fill in the response\'s body. Depending on your body type selection, the response will be transformed appropriately' %>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="small-12 columns mock-headers">
+    <div class="content" id="panel3">
+
       <div class="right">
         <%= link_to_add_association 'Add header',
                                     form,
                                     :headers,
+                                    title: 'Click to define headers to be added to the response',
                                     data: {
                                       association_insertion_method: 'append',
                                       association_insertion_node: '.mock-headers'
                                     } %>
       </div>
-      <%= form.simple_fields_for :headers do |header_fields| %>
-        <%= render partial: 'header_fields', locals: { f: header_fields } %>
-      <% end %>
+      <p>Response headers</p>
 
+      <div class="row">
+        <div class="small-12 columns mock-headers">
+
+          <%= form.simple_fields_for :headers do |header_fields| %>
+            <%= render partial: 'header_fields', locals: { f: header_fields } %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="panel4">
+      <p>Advanced mock configuration</p>
+
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <%= form.input :script_type, collection: available_script_types, include_blank: true, hint: 'Choose the type of the script that you will add below' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <%= form.input :script, input_html: { class: 'tall' }, hint: 'What you fill in this field will be evaluated to a hash structure. The following keys are going to be processed appropriately: "headers", "status_code", "content_type"' %>
+        </div>
+      </div>
     </div>
   </div>
 
-  <%= form.submit 'Save', class: 'button' %>
+  <div class="row">
+    <div class="small-12 medium-4 medium-push-4 columns">
+      <%= link_to 'Cancel', duckrails_mocks_path, class: 'button secondary expand' %>
+    </div>
+
+    <div class="small-12 medium-4 medium-push-4 columns end">
+      <%= form.submit 'Save', class: 'button expand' %>
+    </div>
+  </div>
+
+
 <% end %>

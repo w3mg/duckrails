@@ -7,8 +7,8 @@ class CreateDuckrailsMocks < ActiveRecord::Migration
       t.string :content_type, null: false
       t.string :method, null: false
       t.string :route_path, null: false
-      t.text :content, null: false
       t.string :body_type
+      t.text :body_content
 
       t.timestamps null: false
     end

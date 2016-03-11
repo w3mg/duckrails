@@ -47,18 +47,51 @@ module Duckrails
       mock_id = params[:duckrails_mock_id]
       mock = Duckrails::Mock.find mock_id
 
-      body = mock.dynamic? ? erubify(mock.content) : mock.content
+      body = evaluate_content mock.body_type, mock.body_content
+
+      overrides = (evaluate_content(mock.script_type, mock.script, true) || {}).with_indifferent_access
 
       mock.headers.each do |header|
         response.headers[header.name] = header.value
       end
 
-      render body: body, content_type: mock.content_type, status: mock.status
+      if overrides[:headers]
+        overrides[:headers].each do |header|
+          response.headers[header[:name]] = header[:value]
+        end
+      end
+
+      status = overrides[:status_code] || mock.status
+      content_type = overrides[:content_type] || mock.content_type
+
+      render body: body, content_type: content_type, status: status
     end
 
     #########
     protected
     #########
+
+    def evaluate_content(script_type, script, force_json = false)
+      return nil unless script_type.present?
+
+      result = case script_type
+        when Duckrails::Mock::SCRIPT_TYPE_STATIC
+          script
+        when Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY
+          variables = {
+            response: response,
+            request: request,
+            parameters: params
+          }
+
+          Erubis::Eruby.new(script).evaluate(variables)
+      end
+
+      force_json ? JSON.parse(result) : result
+    rescue StandardError => error
+      response.headers['Duckrails-Error'] = error.to_s
+      nil
+    end
 
     def register_mock
       Duckrails::Router.register_mock @mock
@@ -87,15 +120,6 @@ module Duckrails
 
     def load_mock
       @mock = Duckrails::Mock.find params[:id]
-    end
-
-    def erubify(template)
-      variables = {
-        request: request,
-        parameters: params
-      }
-
-      Erubis::Eruby.new(template).result(variables)
     end
   end
 end

@@ -9,6 +9,8 @@ class CreateDuckrailsMocks < ActiveRecord::Migration
       t.string :route_path, null: false
       t.string :body_type
       t.text :body_content
+      t.string :script_type
+      t.text :script
 
       t.timestamps null: false
     end

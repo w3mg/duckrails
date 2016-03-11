@@ -3,7 +3,7 @@ class CreateDuckrailsHeaders < ActiveRecord::Migration
     create_table :headers do |t|
       t.string :name, null: false
       t.string :value, null: false
-      t.references :mock, index: true, foreign_key: true
+      t.references :mock, index: true, foreign_key: { on_delete: :cascade }
 
       t.timestamps null: false
     end

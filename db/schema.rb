@@ -30,14 +30,16 @@ ActiveRecord::Schema.define(version: 20160304204007) do
     t.string   "content_type", limit: 255,   null: false
     t.string   "method",       limit: 255,   null: false
     t.string   "route_path",   limit: 255,   null: false
-    t.string   "body_type",    limit: 255,   null: false
-    t.text     "content",      limit: 65535, null: false
+    t.string   "body_type",    limit: 255
+    t.text     "body_content", limit: 65535
+    t.string   "script_type",  limit: 255
+    t.text     "script",       limit: 65535
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "mocks", ["method", "route_path"], name: "index_mocks_on_method_and_route_path", unique: true, using: :btree
   add_index "mocks", ["name"], name: "index_mocks_on_name", unique: true, using: :btree
-  add_index "mocks", ["route_path"], name: "index_mocks_on_route_path", unique: true, using: :btree
 
-  add_foreign_key "headers", "mocks"
+  add_foreign_key "headers", "mocks", on_delete: :cascade
 end

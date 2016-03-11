@@ -15,7 +15,7 @@ class CreateDuckrailsMocks < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :mocks, :route_path, unique: true
+    add_index :mocks, [:method, :route_path], unique: true
     add_index :mocks, :name, unique: true
   end
 end

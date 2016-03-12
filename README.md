@@ -1,5 +1,8 @@
 # DuckRails
+
 DuckRails is a development tool.
+
+> If it looks like a duck, walks like a duck and quacks like a duck, then it's a duck
 
 It's main purpose is to allow developers to quickly mock API endpoints that for many possible reasons can't reach at a specific time.
 
@@ -58,7 +61,7 @@ give you access to the parameters with:
 <pre><code>@parameters[:author_id]
 @parameters[:post_id]</code></pre>
 
-# Quick setup (development environment)
+## Quick setup (development environment)
 
 * Clone the repository.
 * Execute <code>bundle install</code> to install the required gems.
@@ -72,6 +75,9 @@ give you access to the parameters with:
 * Execute <code>RAILS_ENV=production rake db:setup</code> to setup the database.
 * Execute <code>bundle exec rails s -e production</code> to start the application on the default port.
 
+## Database configuration
+
+The application is by default configured to use MySQL. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
 
 ### Usage tutorial
 

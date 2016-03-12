@@ -89,7 +89,7 @@ module Duckrails
           Erubis::Eruby.new(script).evaluate(variables)
       end
 
-      force_json ? JSON.parse(result) : result
+      force_json ? JSON.parse(result.blank? ? '{}' : result) : result
     rescue StandardError => error
       response.headers['Duckrails-Error'] = error.to_s
       nil

@@ -1,7 +1,13 @@
 <nav class="top-bar" data-topbar role="navigation">
   <ul class="title-area">
     <li class="name">
-      <h1><%= link_to 'Duckrails', root_path %></h1>
+      <h1>
+        <%= link_to root_path, class: 'home-link' do %>
+          <%= image_tag 'duck-face-white.png', size: '30x30' %>
+          <span>DuckRails</span>
+          <span class="version success">v. <%= Duckrails::Application::VERSION %></span>
+        <% end %>
+      </h1>
     </li>
 
     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -11,9 +17,10 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-dropdown">
-        <a href="#">Actions</a>
+        <a href="#">Menu</a>
         <ul class="dropdown">
-          <li><%= link_to 'Mocks', duckrails_mocks_path %></li>
+          <li><%= link_to 'View all mocks', duckrails_mocks_path %></li>
+          <li><%= link_to 'Create new mock', new_duckrails_mock_path %></li>
         </ul>
       </li>
     </ul>

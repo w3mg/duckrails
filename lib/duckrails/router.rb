@@ -6,7 +6,6 @@ module Duckrails
 
     class << self
       def register_mock(mock)
-        p "Registering #{mock.id}"
         REGISTERED_MOCKS << mock.id
         REGISTERED_MOCKS.uniq!
       end
@@ -22,7 +21,6 @@ module Duckrails
 
       def load_mock_routes!
         REGISTERED_MOCKS.each do |mock_id|
-          p "Defining: #{mock_id}"
           define_route Duckrails::Mock.find mock_id
         end
       end

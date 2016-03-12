@@ -1,3 +1,24 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+a.home-link {
+  span {
+    padding-left: 10px;
+  }
+}
+
+img.duckrails-logo {
+  width: 200px;
+  height: 200px;
+}
+
+.welcome {
+  display: inline-block;
+  margin: auto;
+
+  & > div {
+    margin-right: 20px;
+  }
+
+  .home-welcome {
+    padding-top: 50px;
+    margin-right: 0;
+  }
+}

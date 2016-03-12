@@ -1,16 +1,26 @@
 @import 'foundation';
 @import "font-awesome";
 
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
 textarea {
   resize: none;
 }
 
 .body-content {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 .page-actions {
   margin-top: 20px;
+}
+
+span.version {
+  font-size: 10px !important;
+  color: #008CBA;
 }
 
 ul.tabs {
@@ -67,4 +77,17 @@ ul.tabs {
     float: right;
     color: #777;
   }
+}
+
+pre {
+  font-family: inherit;
+}
+
+div.footer {
+  margin-top: 40px;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  background: #444;
+  color: #f0f0f0;
+  padding: 20px 0;
 }

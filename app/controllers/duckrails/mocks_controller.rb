@@ -5,6 +5,8 @@ module Duckrails
     before_filter :load_mock, only: [:edit, :update, :destroy]
     after_filter :reload_routes, only: [:update, :create, :destroy]
 
+    skip_before_filter :verify_authenticity_token, :only => [:serve_mock]
+
     def index
       @mocks = Duckrails::Mock.page params[:page]
     end
@@ -43,7 +45,7 @@ module Duckrails
     end
 
     # This is the one and only action mapped to each mock route
-    def mockify
+    def serve_mock
       mock_id = params[:duckrails_mock_id]
       mock = Duckrails::Mock.find mock_id
 

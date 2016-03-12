@@ -8,9 +8,5 @@ module Duckrails
       [ [t(Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY), Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY],
         [t(Duckrails::Mock::SCRIPT_TYPE_STATIC), Duckrails::Mock::SCRIPT_TYPE_STATIC] ]
     end
-
-    def available_http_methods
-      [:get, :post, :put, :patch, :delete, :options]
-    end
   end
 end

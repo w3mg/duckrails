@@ -1,5 +1,7 @@
 module Duckrails
   class Router
+    METHODS = [:get, :post, :put, :patch, :delete, :options, :head].freeze
+
     REGISTERED_MOCKS = []
 
     class << self

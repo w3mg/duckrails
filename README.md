@@ -73,7 +73,7 @@ give you access to the parameters with:
 * Execute <code>bundle install</code> to install the required gems.
 * Export an env variable for your [secret key base](http://stackoverflow.com/questions/23726110/missing-production-secret-key-base-in-rails): <code>export SECRET_KEY_BASE="your_secret_key_base_here"</code>
 * Execute <code>RAILS_ENV=production rake db:setup</code> to setup the database.
-* Execute <code>RAILS_ENV=production rake assets:precompile</code> to setup the database.
+* Execute <code>RAILS_ENV=production rake assets:precompile</code> to generate the assets.
 * Execute <code>bundle exec rails s -e production</code> to start the application on the default port.
 
 ## Database configuration

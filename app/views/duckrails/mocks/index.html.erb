@@ -1,4 +1,9 @@
 <% title 'Mocks' %>
+
+<h1>Mocks</h1>
+<p class="page-guide">
+  In this page you can view your current mocks.
+</p>
 <% if @mocks.empty? %>
   <div class="alert-box warning">
     No mocks. The duck is lonely.
@@ -55,7 +60,7 @@
   <div class="row">
     <div class="small-12 columns">
       <%= link_to new_duckrails_mock_path, class: 'button' do %>
-        <i class="fa fa-new"></i>
+        <i class="fa fa-plus"></i>
         <span>Create new mock</span>
       <% end %>
     </div>

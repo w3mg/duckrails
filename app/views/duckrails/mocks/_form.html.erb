@@ -24,7 +24,7 @@
 
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <%= form.input :method, collection: available_http_methods, hint: 'Choose the method that matches this mock' %>
+          <%= form.input :method, collection: Duckrails::Router::METHODS, hint: 'Choose the method that matches this mock' %>
         </div>
         <div class="small-12 medium-6 columns">
           <%= form.input :status, hint: 'Enter the HTTP status code of this mock\'s response' %>
@@ -61,14 +61,16 @@
     <div class="content" id="panel3">
 
       <div class="right">
-        <%= link_to_add_association 'Add header',
-                                    form,
+        <%= link_to_add_association form,
                                     :headers,
                                     title: 'Click to define headers to be added to the response',
                                     data: {
                                       association_insertion_method: 'append',
                                       association_insertion_node: '.mock-headers'
-                                    } %>
+                                      } do %>
+          <i class="fa fa-plus"></i>
+          <span>add header</span>
+          <% end %>
       </div>
       <p>Response headers</p>
 
@@ -101,11 +103,19 @@
   </div>
 
   <div class="row">
-    <div class="small-12 medium-4 medium-push-4 columns">
+    <div class="small-12 medium-4 columns">
+      <% if @mock.new_record? %>
+        &nbsp;
+      <% else %>
+        <%= link_to('Delete', duckrails_mock_path(@mock), method: :delete, class: 'button alert expand', data: { confirm: 'Are you sure you want to delete this mock?' }) %>
+      <% end %>
+    </div>
+
+    <div class="small-12 medium-4 columns">
       <%= link_to 'Cancel', duckrails_mocks_path, class: 'button secondary expand' %>
     </div>
 
-    <div class="small-12 medium-4 medium-push-4 columns end">
+    <div class="small-12 medium-4 columns end">
       <%= form.submit 'Save', class: 'button expand' %>
     </div>
   </div>

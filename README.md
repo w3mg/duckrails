@@ -1,4 +1,4 @@
-# DuckRails [![GitHub version](https://badge.fury.io/gh/iridakos%2Fduckrails.svg)](https://badge.fury.io/gh/iridakos%2Fduckrails)
+# DuckRails [![GitHub version](https://badge.fury.io/gh/iridakos%2Fduckrails.png)](https://badge.fury.io/gh/iridakos%2Fduckrails)
 
 DuckRails is a development tool.
 

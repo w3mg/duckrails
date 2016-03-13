@@ -2,9 +2,9 @@
 
 DuckRails is a development tool.
 
-> If it looks like a duck, walks like a duck and quacks like a duck, then it's a duck
-
 It's main purpose is to allow developers to quickly mock API endpoints that for many possible reasons can't reach at a specific time.
+
+> If it looks like a duck, walks like a duck and quacks like a duck, then it's a duck
 
 ![Home Page](http://i.imgur.com/3hm0Gaj.png)
 

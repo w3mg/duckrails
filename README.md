@@ -19,6 +19,10 @@ The application allows to create new routes dynamically to which developers can 
 
 or even cause delays, timeouts etc.
 
+### Guides
+
+You can find DuckRails' guides [here](http://www.arubystory.com/p/duckrails-tutorial.html).
+
 ### Example
 
 Setting general mock properties
@@ -79,11 +83,6 @@ give you access to the parameters with:
 ## Database configuration
 
 The application is by default configured to use MySQL. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
-
-### Usage tutorial
-
-You can find a tutorial [here](http://www.arubystory.com/p/duckrails-tutorial.html).
-
 
 ## Contributing
 

@@ -22,3 +22,7 @@ group :development do
   gem 'spring'
   gem 'table_flipper'
 end
+
+group :test do
+  gem 'sqlite3'
+end

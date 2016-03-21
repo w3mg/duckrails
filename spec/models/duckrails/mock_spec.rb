@@ -130,7 +130,96 @@ module Duckrails
       end
 
       context 'route' do
+        context 'with Bad URI' do
+          it 'should be invalid' do
+            mock = FactoryGirl.build :mock, route_path: 'httpgih[]com'
 
+            expect(mock).to be_invalid
+            expect(mock.errors[:route_path]).to include 'is not a valid route'
+          end
+        end
+
+        context 'with action not served by the mocks controller' do
+          it 'should be invalid' do
+            mock = FactoryGirl.build :mock, route_path: '/'
+
+            expect(mock).to be_invalid
+            expect(mock.errors[:route_path]).to include 'already in use'
+          end
+        end
+
+        context 'with action served by the mocks controller but not by the #serve_mock method' do
+          it 'should be invalid' do
+            mock = FactoryGirl.build :mock, route_path: '/duckrails/mocks'
+
+            expect(mock).to be_invalid
+            expect(mock.errors[:route_path]).to include 'already in use'
+          end
+        end
+
+        context 'with action served by the mocks controller, by the #serve_mock method but for another mock' do
+          it 'should be invalid' do
+            FactoryGirl.create :mock
+            mock = FactoryGirl.build :mock
+
+            expect(mock).to be_invalid
+            expect(mock.errors[:route_path]).to include 'has already been taken'
+          end
+        end
+
+        context 'updating an existing mock without changing the route passes' do
+          it 'should be valid' do
+            mock = FactoryGirl.create :mock
+            mock.name = 'Changed Default Name'
+            expect(mock).to be_valid
+          end
+        end
+      end
+    end
+
+    context 'methods' do
+      describe '#dynamic?' do
+        let(:body_type) { nil }
+
+        subject { FactoryGirl.build(:mock, body_type: body_type).dynamic? }
+
+        context 'with static body type' do
+          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
+
+          it { should be false }
+        end
+
+        context 'with embedded ruby body type' do
+          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
+
+          it { should be true }
+        end
+      end
+    end
+
+    context 'callbacks' do
+      describe '#after_save' do
+        let(:mock) { FactoryGirl.build(:mock) }
+
+        before do
+          expect(Duckrails::Router).to receive(:register_mock).with(mock).once
+        end
+
+        it 'registers the mock' do
+          expect(mock.save).to be true
+        end
+      end
+
+      describe '#after_destroy' do
+        let(:mock) { FactoryGirl.create(:mock) }
+
+        before do
+          expect(Duckrails::Router).to receive(:unregister_mock).with(mock).once
+        end
+
+        it 'registers the mock' do
+          expect(mock.destroy).to eq mock
+        end
       end
     end
   end

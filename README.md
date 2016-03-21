@@ -92,4 +92,6 @@ The application is by default configured to use MySQL. If you want to use anothe
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-##### [**Lazarus Lazaridis**](http://www.arubystory.com)
+## License
+
+This application is open source under the [MIT License](https://opensource.org/licenses/MIT) terms.

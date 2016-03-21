@@ -6,8 +6,8 @@ class Duckrails::Mock < ActiveRecord::Base
   accepts_nested_attributes_for :headers, allow_destroy: true, reject_if: :all_blank
 
   validates :status, presence: true
-  validates :method, presence: true
-  validates :route_path, presence: true, route: true, uniqueness: { scope: :method }
+  validates :request_method, presence: true
+  validates :route_path, presence: true, route: true, uniqueness: { scope: :request_method }
   validates :name, presence: true, uniqueness: true
   validates :body_type, inclusion: { in: [SCRIPT_TYPE_STATIC,
                                           SCRIPT_TYPE_EMBEDDED_RUBY],

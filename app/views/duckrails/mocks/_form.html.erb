@@ -24,7 +24,7 @@
 
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <%= form.input :method, collection: Duckrails::Router::METHODS, hint: 'Choose the method that matches this mock' %>
+          <%= form.input :request_method, collection: Duckrails::Router::METHODS, hint: 'Choose the method that matches this mock' %>
         </div>
         <div class="small-12 medium-6 columns">
           <%= form.input :status, hint: 'Enter the HTTP status code of this mock\'s response' %>

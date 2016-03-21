@@ -29,7 +29,7 @@ module Duckrails
 
       def define_route(mock)
         Duckrails::Application.routes.draw do
-          self.send(:match, mock.route_path, to: 'duckrails/mocks#serve_mock', defaults: { duckrails_mock_id: mock.id }, via: mock.method)
+          self.send(:match, mock.route_path, to: 'duckrails/mocks#serve_mock', defaults: { duckrails_mock_id: mock.id }, via: mock.request_method)
         end
       end
     end

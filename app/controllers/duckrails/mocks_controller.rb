@@ -111,7 +111,7 @@ module Duckrails
                                              :body_content,
                                              :script_type,
                                              :script,
-                                             :method,
+                                             :request_method,
                                              :content_type,
                                              :route_path,
                                              headers_attributes: [:id,

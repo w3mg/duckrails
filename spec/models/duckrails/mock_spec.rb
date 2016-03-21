@@ -75,6 +75,13 @@ module Duckrails
           subject { FactoryGirl.build :mock }
 
           it { should validate_uniqueness_of(:name) }
+
+          it 'should validate uniqueness without case sensitivity' do
+            FactoryGirl.create(:mock)
+            mock = FactoryGirl.build(:mock, name: 'Default MOCK')
+            expect(mock).to be_invalid
+            expect(mock.errors[:name]).to include('has already been taken')
+          end
         end
 
         context '#route_path' do

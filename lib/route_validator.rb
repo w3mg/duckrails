@@ -12,7 +12,7 @@ class RouteValidator < ActiveModel::EachValidator
       valid = route[:controller] == 'duckrails/mocks' && route[:action] == 'serve_mock' && route[:duckrails_mock_id] == record.id
     rescue URI::InvalidURIError => exception
       # Bad URI
-      record.errors[attribute] << (options[:message] || "is not a valid route")
+      record.errors[attribute] << (options[:message] || 'is not a valid route')
     rescue ActionController::RoutingError => exception
       # FIXME: check if this exception is raised in other cases except when the route doesn't exist
       # Route doesn't exist, you may proceed

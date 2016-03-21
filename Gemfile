@@ -25,4 +25,7 @@ end
 
 group :test do
   gem 'sqlite3'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end

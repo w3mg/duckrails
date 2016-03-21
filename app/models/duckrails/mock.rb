@@ -9,7 +9,7 @@ class Duckrails::Mock < ActiveRecord::Base
   validates :request_method, presence: true
   validates :content_type, presence: true
   validates :route_path, presence: true, route: true, uniqueness: { scope: :request_method }
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :body_type, inclusion: { in: [SCRIPT_TYPE_STATIC,
                                           SCRIPT_TYPE_EMBEDDED_RUBY],
                                      allow_blank: true },

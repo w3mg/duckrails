@@ -2,6 +2,19 @@ require 'rails_helper'
 
 module Duckrails
   RSpec.describe Mock, type: :model do
+    context 'attributes' do
+      it { should respond_to :headers, :headers= }
+      it { should respond_to :status, :status= }
+      it { should respond_to :request_method, :request_method= }
+      it { should respond_to :content_type, :content_type= }
+      it { should respond_to :route_path, :route_path= }
+      it { should respond_to :name, :name= }
+      it { should respond_to :body_type, :body_type= }
+      it { should respond_to :body_content, :body_content= }
+      it { should respond_to :script_type, :script_type= }
+      it { should respond_to :script, :script= }
+    end
+
     context 'relations' do
       it { should have_many(:headers).dependent(:destroy) }
       it { should accept_nested_attributes_for(:headers).allow_destroy(true) }

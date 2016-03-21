@@ -28,6 +28,10 @@ class Duckrails::Mock < ActiveRecord::Base
     body_type != SCRIPT_TYPE_STATIC
   end
 
+  #########
+  protected
+  #########
+
   def register
     Duckrails::Router.register_mock self
   end

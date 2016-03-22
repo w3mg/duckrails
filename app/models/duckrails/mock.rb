@@ -2,7 +2,7 @@ class Duckrails::Mock < ActiveRecord::Base
   SCRIPT_TYPE_EMBEDDED_RUBY = 'embedded_ruby'
   SCRIPT_TYPE_STATIC = 'static'
 
-  has_many :headers, dependent: :destroy
+  has_many :headers, dependent: :destroy, inverse_of: :mock
   accepts_nested_attributes_for :headers, allow_destroy: true, reject_if: :all_blank
 
   validates :status, presence: true

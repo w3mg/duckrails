@@ -3,4 +3,5 @@ class Duckrails::Header < ActiveRecord::Base
 
   validates :name, presence: true
   validates :value, presence: true
+  validates :mock, presence: true
 end

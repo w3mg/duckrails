@@ -46,11 +46,8 @@ module Duckrails
 
     # This is the one and only action mapped to each mock route
     def serve_mock
-      mock_id = params[:duckrails_mock_id]
-      mock = Duckrails::Mock.find mock_id
-
+      mock = Duckrails::Mock.find params[:duckrails_mock_id]
       body = evaluate_content mock.body_type, mock.body_content
-
       overrides = (evaluate_content(mock.script_type, mock.script, true) || {}).with_indifferent_access
 
       mock.headers.each do |header|

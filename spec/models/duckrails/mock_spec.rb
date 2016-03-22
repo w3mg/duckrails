@@ -222,5 +222,38 @@ module Duckrails
         end
       end
     end
+
+    context 'CRUD' do
+      it 'should save mocks' do
+        mock = FactoryGirl.build :mock
+
+        expect{ mock.save }.to change(Mock, :count).from(0).to(1)
+      end
+
+      it 'should update mocks' do
+        mock = FactoryGirl.create :mock
+
+        mock.name = 'Another Default mock'
+        expect(mock.save).to be true
+
+        mock.reload
+        expect(mock.name).to eq 'Another Default mock'
+      end
+
+      it 'should destroy mocks' do
+        mock = FactoryGirl.create :mock
+
+        expect{ mock.destroy }.to change(Mock, :count).from(1).to(0)
+      end
+
+      it 'should save headers' do
+        mock = FactoryGirl.build :mock, headers: [ FactoryGirl.build(:header) ]
+
+        expect{ mock.save }.to change(Header, :count).from(0).to(1)
+
+        mock.reload
+        expect(mock.headers.size).to eq 1
+      end
+    end
   end
 end

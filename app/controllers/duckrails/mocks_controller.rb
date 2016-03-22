@@ -2,8 +2,8 @@ require 'duckrails/router'
 
 module Duckrails
   class MocksController < ApplicationController
-    before_filter :load_mock, only: [:edit, :update, :destroy]
-    after_filter :reload_routes, only: [:update, :create, :destroy]
+    before_action :load_mock, only: [:edit, :update, :destroy]
+    after_action :reload_routes, only: [:update, :create, :destroy]
 
     skip_before_filter :verify_authenticity_token, :only => [:serve_mock]
 

@@ -51,12 +51,12 @@ module Duckrails
       overrides = (evaluate_content(mock.script_type, mock.script, true) || {}).with_indifferent_access
 
       mock.headers.each do |header|
-        response.headers[header.name] = header.value
+        add_response_header header
       end
 
       if overrides[:headers]
         overrides[:headers].each do |header|
-          response.headers[header[:name]] = header[:value]
+          add_response_header header
         end
       end
 
@@ -69,6 +69,10 @@ module Duckrails
     #########
     protected
     #########
+
+    def add_response_header(header)
+      response.headers[header[:name]] = header[:value]
+    end
 
     def evaluate_content(script_type, script, force_json = false)
       return nil unless script_type.present?

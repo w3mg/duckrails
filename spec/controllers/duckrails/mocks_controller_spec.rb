@@ -146,5 +146,62 @@ module Duckrails
         end
       end
     end
+
+    describe 'DELETE #destroy' do
+      let(:mock) { FactoryGirl.create :mock }
+
+      before do
+        expect(Duckrails::Router).to receive(:unregister_mock).with(mock).once.and_call_original
+
+        delete :destroy, id: mock.id
+      end
+
+      describe 'response' do
+        subject { response }
+
+        it { should redirect_to duckrails_mocks_path }
+      end
+
+    end
+
+    describe '#serve_mock' do
+      let(:body_type) { nil }
+      let(:body_content) { nil }
+      let(:script_type) { nil }
+      let(:script) { nil }
+      let(:headers) { nil }
+      let!(:mock) { FactoryGirl.create(:mock,
+                                      headers: headers || [],
+                                      body_type: body_type,
+                                      body_content: body_content,
+                                      script_type: script_type,
+                                      script: script ) }
+
+      before do
+        Duckrails::Application.routes_reloader.reload!
+
+        expect(controller).to receive(:evaluate_content).with(body_type, body_content).once.and_call_original
+        expect(controller).to receive(:evaluate_content).with(script_type, script, true).once.and_call_original
+      end
+
+      context 'without overrides' do
+        let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
+        let(:body_content) { 'Hello world' }
+
+        context 'without headers' do
+          it 'should render the body content' do
+            expect(controller).to receive(:add_response_header).never
+
+            get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
+
+            expect(response.body).to eq body_content
+            expect(response.content_type).to eq mock.content_type
+            expect(response.status).to eq mock.status
+          end
+        end
+      end
+
+      pending 'continue adding missing specs here'
+    end
   end
 end

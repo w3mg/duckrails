@@ -1,15 +1,28 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the MocksHelper. For example:
-#
-# describe MocksHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
-RSpec.describe Duckrails::MocksHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+module Duckrails
+  RSpec.describe MocksHelper, type: :helper do
+    describe '#available_mime_types' do
+      subject { helper.send :available_mime_types }
+
+      it 'should return all available mime types' do
+        expect(subject).to eq Mime::EXTENSION_LOOKUP.map{ |a| a[1].to_s }.uniq
+      end
+
+      it 'should show the mime type' do
+        expect(subject).to include 'application/json'
+      end
+    end
+
+    describe '#available_script_types' do
+      subject { helper.send :available_script_types }
+
+      it 'should return all available types and their translations' do
+        expect(subject.size).to eq 2
+        
+        expect(subject).to include ['Embedded Ruby', 'embedded_ruby']
+        expect(subject).to include ['Static', 'static']
+      end
+    end
+  end
 end

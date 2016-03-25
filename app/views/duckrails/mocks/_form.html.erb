@@ -8,7 +8,7 @@
 
   <div class="tabs-content">
     <div class="content active" id="general">
-      <p><%= t(:general_tab_header) %></p>
+      <p><%= t :general_tab_header  %></p>
 
       <div class="row">
         <div class="small-12 columns">
@@ -40,7 +40,7 @@
     </div>
 
     <div class="content" id="response_body">
-      <p><%= t(:response_body_tab_header) %></p>
+      <p><%= t :response_body_tab_header %></p>
 
       <div class="row">
         <div class="small-12 medium-6 columns">
@@ -60,20 +60,19 @@
     </div>
 
     <div class="content" id="headers">
-
       <div class="right">
         <%= link_to_add_association form,
                                     :headers,
-                                    title: 'Click to define headers to be added to the response',
+                                    title: t(:add_header_link_title),
                                     data: {
                                       association_insertion_method: 'append',
                                       association_insertion_node: '.mock-headers'
                                       } do %>
           <i class="fa fa-plus"></i>
-          <span>add header</span>
+          <span><%= t(:add_header) %></span>
           <% end %>
       </div>
-      <p>Response headers</p>
+      <p><%= t :headers_tab_header %></p>
 
       <div class="row">
         <div class="small-12 columns mock-headers">
@@ -87,17 +86,17 @@
     </div>
 
     <div class="content" id="advanced">
-      <p>Advanced mock configuration</p>
+      <p><%= t :advanced_tab_header %></p>
 
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <%= form.input :script_type, collection: available_script_types, include_blank: true, hint: 'Choose the type of the script that you will add below' %>
+          <%= form.input :script_type, collection: available_script_types, include_blank: true, hint: t(:field_script_type_hint) %>
         </div>
       </div>
 
       <div class="row">
         <div class="small-12 columns">
-          <%= form.input :script, input_html: { class: 'tall' }, hint: 'What you fill in this field will be evaluated to a hash structure. The following keys are going to be processed appropriately: "headers", "status_code", "content_type"' %>
+          <%= form.input :script, input_html: { class: 'tall' }, hint: t(:field_script_hint) %>
         </div>
       </div>
     </div>
@@ -108,16 +107,16 @@
       <% if @mock.new_record? %>
         &nbsp;
       <% else %>
-        <%= link_to('Delete', duckrails_mock_path(@mock), method: :delete, class: 'button alert expand', data: { confirm: 'Are you sure you want to delete this mock?' }) %>
+        <%= link_to(t(:delete), duckrails_mock_path(@mock), method: :delete, class: 'button alert expand', data: { confirm: t(:delete_mock_confirmation) }) %>
       <% end %>
     </div>
 
     <div class="small-12 medium-4 columns">
-      <%= link_to 'Cancel', duckrails_mocks_path, class: 'button secondary expand' %>
+      <%= link_to t(:cancel), duckrails_mocks_path, class: 'button secondary expand' %>
     </div>
 
     <div class="small-12 medium-4 columns end">
-      <%= form.submit 'Save', class: 'button expand' %>
+      <%= form.submit t(:save), class: 'button expand' %>
     </div>
   </div>
 <% end %>

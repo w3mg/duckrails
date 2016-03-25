@@ -33,3 +33,5 @@ en:
   delete: "Delete"
   cancel: "Cancel"
   save: "Save"
+  field_header_name_hint: "Fill in the header name"
+  field_header_value_hint: "Fill in the header value"

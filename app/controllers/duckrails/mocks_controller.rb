@@ -5,7 +5,7 @@ module Duckrails
     before_action :load_mock, only: [:edit, :update, :destroy]
     after_action :reload_routes, only: [:update, :create, :destroy]
 
-    skip_before_filter :verify_authenticity_token, :only => [:serve_mock]
+    skip_before_action :verify_authenticity_token, :only => [:serve_mock]
 
     def index
       @mocks = Duckrails::Mock.page params[:page]

@@ -1,23 +1,4 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
+# TODO: use proper namespace, keys etc.
 
 en:
   welcome_message: "Welcome to Duckrails. Choose what you want to do."
@@ -28,3 +9,17 @@ en:
   static: "Static"
   embedded_ruby: "Embedded Ruby"
   edit_mock_header: "Edit mock '%{mock}'"
+  general_tab: "General"
+  response_body_tab: "Response body"
+  headers_tab: "Headers"
+  advanced_tab: "Advanced"
+  general_tab_header: "General mock properties"
+  field_name_hint: "Enter a name for this mock"
+  field_description_hint: "Enter a description"
+  field_request_method_hint: "Choose the method that matches this mock"
+  field_status_hint: "Enter the HTTP status code of this mock's response"
+  field_route_path_hint: "Enter the route you want to mock. You can use :blah and get the values as parameters"
+  response_body_tab_header: "Response body properties"
+  field_body_type_hint: "Choose the type of the response body"
+  field_content_type_hint: "Choose the content type to be set to the response"
+  field_body_content_hint: "Fill in the response's body. Depending on your body type selection, the response will be transformed appropriately"

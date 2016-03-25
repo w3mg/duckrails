@@ -9,6 +9,20 @@ module Duckrails
         it { should execute_before_filter :load_mock, :on => :destroy, with: { id: 'foo' } }
         it { should_not execute_before_filter :load_mock, :on => :index }
         it { should_not execute_before_filter :load_mock, :on => :new }
+
+        describe '#serve_mock' do
+          let(:mock) { FactoryGirl.build :mock }
+
+          before do
+            mock.save!
+
+            Duckrails::Application.routes_reloader.reload!
+          end
+
+          it { should_not execute_before_filter :load_mock, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+          it { should_not execute_before_filter :verify_authenticity_token, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+          it { should_not execute_after_filter :reload_routes, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+        end
       end
 
       context '#reload_routes' do
@@ -261,5 +275,7 @@ module Duckrails
         end
       end
     end
+
+
   end
 end

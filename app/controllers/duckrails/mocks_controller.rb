@@ -96,10 +96,6 @@ module Duckrails
       nil
     end
 
-    def register_mock
-      Duckrails::Router.register_mock @mock
-    end
-
     def reload_routes
       Duckrails::Application.routes_reloader.reload!
     end

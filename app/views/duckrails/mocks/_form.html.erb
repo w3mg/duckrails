@@ -1,13 +1,13 @@
 <%= simple_form_for @mock, html: { class: 'mock-form' } do |form| %>
   <ul class="tabs" data-tab>
-    <li class="tab-title active"><a href="#panel1">General</a></li>
-    <li class="tab-title"><a href="#panel2">Response body</a></li>
-    <li class="tab-title"><a href="#panel3">Headers</a></li>
-    <li class="tab-title"><a href="#panel4">Advanced</a></li>
+    <li class="tab-title active"><a href="#general">General</a></li>
+    <li class="tab-title"><a href="#response_body">Response body</a></li>
+    <li class="tab-title"><a href="#headers">Headers</a></li>
+    <li class="tab-title"><a href="#advanced">Advanced</a></li>
   </ul>
 
   <div class="tabs-content">
-    <div class="content active" id="panel1">
+    <div class="content active" id="general">
       <p>General mock properties</p>
 
       <div class="row">
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="content" id="panel2">
+    <div class="content" id="response_body">
       <p>Response body properties</p>
 
       <div class="row">
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="content" id="panel3">
+    <div class="content" id="headers">
 
       <div class="right">
         <%= link_to_add_association form,
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="content" id="panel4">
+    <div class="content" id="advanced">
       <p>Advanced mock configuration</p>
 
       <div class="row">

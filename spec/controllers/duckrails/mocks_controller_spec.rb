@@ -170,7 +170,9 @@ module Duckrails
       let(:script_type) { nil }
       let(:script) { nil }
       let(:headers) { nil }
-      let!(:mock) { FactoryGirl.create(:mock,
+      let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
+      let(:body_content) { 'Hello world' }
+      let(:mock) { FactoryGirl.build(:mock,
                                       headers: headers || [],
                                       body_type: body_type,
                                       body_content: body_content,
@@ -178,18 +180,17 @@ module Duckrails
                                       script: script ) }
 
       before do
+        mock.save!
+
         Duckrails::Application.routes_reloader.reload!
 
         expect(controller).to receive(:evaluate_content).with(body_type, body_content).once.and_call_original
         expect(controller).to receive(:evaluate_content).with(script_type, script, true).once.and_call_original
       end
 
-      context 'without overrides' do
-        let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
-        let(:body_content) { 'Hello world' }
-
+      context 'without script' do
         context 'without headers' do
-          it 'should render the body content' do
+          it 'should respond with mock\'s body, content & status' do
             expect(controller).to receive(:add_response_header).never
 
             get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
@@ -199,9 +200,66 @@ module Duckrails
             expect(response.status).to eq mock.status
           end
         end
+
+        context 'with headers' do
+          let(:headers) {
+            [ FactoryGirl.build(:header, name: 'Header 1', value: 'Value 1'),
+              FactoryGirl.build(:header, name: 'Header 2', value: 'Value 2')] }
+
+          it 'should respond with mock\'s body, content, status & headers' do
+            expect(controller).to receive(:add_response_header).twice.and_call_original
+
+            get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
+
+            expect(response.body).to eq body_content
+            expect(response.content_type).to eq mock.content_type
+            expect(response.status).to eq mock.status
+            expect(response.headers['Header 1']).to eq 'Value 1'
+            expect(response.headers['Header 2']).to eq 'Value 2'
+          end
+        end
       end
 
-      pending 'continue adding missing specs here'
+      context 'with script' do
+        let(:script_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
+        let(:script_headers) { '[{ name: "Header 1", value: "Override 1" }, { name: "Header 3", value: "New Header" }]' }
+        let(:content_type) { 'application/duckrails' }
+        let(:status_code) { 418 }
+        let(:script) { "<%= { headers: #{script_headers}, content_type: '#{content_type}', status_code: #{status_code} }.to_json %>" }
+
+        context 'without headers' do
+          it 'should respond with mock\'s body, override content, status & add new headers' do
+            expect(controller).to receive(:add_response_header).exactly(2).times.and_call_original
+
+            get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
+
+            expect(response.body).to eq body_content
+            expect(response.content_type).to eq content_type
+            expect(response.status).to eq status_code
+            expect(response.headers['Header 1']).to eq 'Override 1'
+            expect(response.headers['Header 3']).to eq 'New Header'
+          end
+        end
+
+        context 'with headers' do
+          let(:headers) {
+            [ FactoryGirl.build(:header, name: 'Header 1', value: 'Value 1'),
+              FactoryGirl.build(:header, name: 'Header 2', value: 'Value 2')] }
+
+          it 'should respond with mock\'s body, content, status & headers' do
+            expect(controller).to receive(:add_response_header).exactly(4).times.and_call_original
+
+            get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
+
+            expect(response.body).to eq body_content
+            expect(response.content_type).to eq content_type
+            expect(response.status).to eq status_code
+            expect(response.headers['Header 1']).to eq 'Override 1'
+            expect(response.headers['Header 2']).to eq 'Value 2'
+            expect(response.headers['Header 3']).to eq 'New Header'
+          end
+        end
+      end
     end
   end
 end

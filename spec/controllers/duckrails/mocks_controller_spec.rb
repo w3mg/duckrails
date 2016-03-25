@@ -297,14 +297,28 @@ module Duckrails
       let(:script_type) { nil }
       let(:script) { nil }
       let(:force_json) { nil }
+      let(:should_raise_exception) { false }
       let(:response) { ActionController::TestResponse.new }
 
       before do
         allow(controller).to receive(:response).and_return(response)
+
+        arguments = [script_type, script]
+        arguments << force_json unless force_json.nil?
+
+        @result = controller.send :evaluate_content, *arguments
+
+        if should_raise_exception
+          expect(response.headers['Duckrails-Error']).not_to be_blank
+        else
+          expect(response.headers['Duckrails-Error']).to be_blank
+        end
       end
 
+      subject { @result }
+
       context 'with force json variable' do
-        subject { controller.send :evaluate_content, script_type, script, force_json }
+        let(:force_json) { false }
 
         context 'without script type' do
           context 'without script' do
@@ -319,14 +333,175 @@ module Duckrails
         end
 
         context 'with script type' do
+          context 'with static script type' do
+            let(:script_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
 
+            context 'without script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                it { should == {} }
+              end
+
+              context 'without force json' do
+                it { should be nil }
+              end
+            end
+
+            context 'with script' do
+              let(:script) { 'test' }
+
+              context 'with force json' do
+                let(:force_json) { true }
+
+                context 'and invalid json' do
+                  let(:should_raise_exception) { true }
+
+                  it { should be nil }
+                end
+
+                context 'and valid json' do
+                  let(:script) { { foo: 1 }.to_json }
+
+                  it { should == { 'foo' => 1 } }
+                end
+              end
+
+              context 'without force json' do
+                it { should eq 'test' }
+              end
+            end
+          end
+
+          context 'with embedded ruby script' do
+            let(:script_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
+
+            context 'without script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                it { should == {} }
+              end
+
+              context 'without force json' do
+                it { should be nil }
+              end
+            end
+
+            context 'with script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                context 'and invalid json' do
+                  let(:script) { '<%= Date.today %>' }
+                  let(:should_raise_exception) { true }
+
+                  it { should be nil }
+                end
+
+                context 'and valid json' do
+                  let(:script) { '<%= { foo: Date.today }.to_json %>' }
+
+                  it { should == { foo: Date.today }.as_json }
+                end
+              end
+            end
+          end
         end
       end
 
       context 'without force json variable' do
+        let(:force_json) { nil }
 
+        context 'without script type' do
+          context 'without script' do
+            it { should be nil }
+          end
+
+          context 'with script' do
+            let(:script) { 'Whatever' }
+
+            it { should be nil }
+          end
+        end
+
+        context 'with script type' do
+          context 'with static script type' do
+            let(:script_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
+
+            context 'without script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                it { should == {} }
+              end
+
+              context 'without force json' do
+                it { should be nil }
+              end
+            end
+
+            context 'with script' do
+              let(:script) { 'test' }
+
+              context 'with force json' do
+                let(:force_json) { true }
+
+                context 'and invalid json' do
+                  let(:should_raise_exception) { true }
+
+                  it { should be nil }
+                end
+
+                context 'and valid json' do
+                  let(:script) { { foo: 1 }.to_json }
+
+                  it { should == { 'foo' => 1 } }
+                end
+              end
+
+              context 'without force json' do
+                it { should eq 'test' }
+              end
+            end
+          end
+
+          context 'with embedded ruby script' do
+            let(:script_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
+
+            context 'without script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                it { should == {} }
+              end
+
+              context 'without force json' do
+                it { should be nil }
+              end
+            end
+
+            context 'with script' do
+              context 'with force json' do
+                let(:force_json) { true }
+
+                context 'and invalid json' do
+                  let(:script) { '<%= Date.today %>' }
+                  let(:should_raise_exception) { true }
+
+                  it { should be nil }
+                end
+
+                context 'and valid json' do
+                  let(:script) { '<%= { foo: Date.today }.to_json %>' }
+
+                  it { should == { foo: Date.today }.as_json }
+                end
+              end
+            end
+          end
+        end
       end
-
     end
   end
 end

@@ -112,6 +112,56 @@ module Duckrails
       end
     end
 
+    describe 'POST #create' do
+      let(:mock) { FactoryGirl.build :mock }
+      let(:valid) { nil }
+
+      before do
+        expect(controller).to receive(:mock_params).and_call_original
+        expect_any_instance_of(Mock).to receive(:save).once.and_return(valid)
+
+        post :create, id: mock.id, duckrails_mock: FactoryGirl.attributes_for(:mock)
+      end
+
+      context 'with valid mock' do
+        let(:valid) { true }
+
+        describe 'response' do
+          subject { response }
+
+          it { should have_http_status :redirect }
+          it { should redirect_to duckrails_mocks_path  }
+        end
+
+        describe '@mock' do
+          subject { assigns :mock }
+
+          it 'should assign attributes' do
+            expect(subject.name).to eq 'Default mock'
+          end
+        end
+      end
+
+      context 'with invalid mock' do
+        let(:valid) { false }
+
+        describe 'response' do
+          subject { response }
+
+          it { should have_http_status :success }
+          it { should render_template :new  }
+        end
+
+        describe '@mock' do
+          subject { assigns :mock }
+
+          it 'should assign attributes' do
+            expect(subject.name).to eq 'Default mock'
+          end
+        end
+      end
+    end
+
     describe 'PUT/PATCH #update' do
       let(:mock) { FactoryGirl.create :mock }
       let(:valid) { nil }

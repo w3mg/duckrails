@@ -554,5 +554,73 @@ module Duckrails
         end
       end
     end
+
+    describe '#reload_routes' do
+      it 'should request route reloading' do
+        expect(Duckrails::Application.routes_reloader).to receive(:reload!).twice
+
+        controller.send(:reload_routes)
+      end
+    end
+
+    describe '#mock_params' do
+      let(:parameters) {
+        { duckrails_mock: {
+          name: 'Name',
+          description: 'Description',
+          status: 'Status',
+          body_type: 'Body type',
+          script_type: 'Script type',
+          script: 'Script',
+          request_method: 'Request method',
+          content_type: 'Content type',
+          route_path: 'Route path',
+          headers_attributes: {
+            '0' => {
+              name: 'Header 0 Name',
+              value: 'Header 0 Value',
+              _destroy: false
+            },
+            '1' => {
+              name: 'Header 1 Name',
+              value: 'Header 1 Value',
+              _destroy: true
+            }
+            } } } }
+
+      let(:invalid_parameters) {
+        result = parameters.dup
+        result[:duckrails_mock][:first_level_forbidden] = 'Forbidden'
+        result[:duckrails_mock][:headers_attributes]['0'][:second_level_forbidden] = 'Forbidden'
+        result
+      }
+      let(:params) { ActionController::Parameters.new parameters }
+      let(:invalid_params) { ActionController::Parameters.new parameters }
+
+
+      it 'should allow specific attributes' do
+        expect(controller).to receive(:params).and_return(params)
+
+        expect(controller.send(:mock_params)).to eq parameters[:duckrails_mock].with_indifferent_access
+      end
+
+      it 'should ignore forbidden attributes' do
+        expect(controller).to receive(:params).and_return(invalid_params)
+
+        expect(controller.send(:mock_params)).to eq parameters[:duckrails_mock].with_indifferent_access
+      end
+    end
+
+    describe '#load_mock' do
+      let(:mock) { FactoryGirl.build(:mock) }
+
+      it 'should load the mock with the specific params id' do
+        expect(controller).to receive(:params).and_return(ActionController::Parameters.new(id: 1))
+        expect(Duckrails::Mock).to receive(:find).with(1).once.and_return(mock)
+
+        controller.send(:load_mock)
+        expect(controller.instance_variable_get(:@mock)).to eq mock
+      end
+    end
   end
 end

@@ -276,6 +276,57 @@ module Duckrails
       end
     end
 
+    ###########
+    # protected
+    ###########
 
+    describe '#add_response_header' do
+      let(:response) { ActionController::TestResponse.new }
+      let(:header) { FactoryGirl.build :header }
+
+      it 'should' do
+        expect(controller).to receive(:response).and_return(response)
+
+        controller.send(:add_response_header, header)
+
+        expect(response.headers['Authorization']).to eq header.value
+      end
+    end
+
+    describe '#evaluate_content' do
+      let(:script_type) { nil }
+      let(:script) { nil }
+      let(:force_json) { nil }
+      let(:response) { ActionController::TestResponse.new }
+
+      before do
+        allow(controller).to receive(:response).and_return(response)
+      end
+
+      context 'with force json variable' do
+        subject { controller.send :evaluate_content, script_type, script, force_json }
+
+        context 'without script type' do
+          context 'without script' do
+            it { should be nil }
+          end
+
+          context 'with script' do
+            let(:script) { 'Whatever' }
+
+            it { should be nil }
+          end
+        end
+
+        context 'with script type' do
+
+        end
+      end
+
+      context 'without force json variable' do
+
+      end
+
+    end
   end
 end

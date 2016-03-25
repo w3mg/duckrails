@@ -68,6 +68,50 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
       it { should have_css '.hint', text: t(:field_body_content_hint) }
     end
 
-    pending 'add missing specs'
+    context 'headers' do
+      subject { page.find '.tabs-content #headers' }
+
+      it { should have_css 'p', text: t(:headers_tab_header) }
+      it { should have_css "a[title='#{t(:add_header_link_title)}'] span", text: t(:add_header) }
+
+      context 'with headers' do
+        let(:mock) { FactoryGirl.build(:mock, headers: 3.times.map{ FactoryGirl.build :header })}
+
+        it { should render_template partial: '_header_fields', count: 4 }
+      end
+
+      context 'without headers' do
+        it { should render_template partial: '_header_fields', count: 1 }
+      end
+    end
+
+    context 'advanced' do
+      subject { page.find '.tabs-content #advanced' }
+
+      it { should have_css 'p', text: t(:advanced_tab_header) }
+
+      it { should have_field 'Script type', type: 'select' }
+      it { should have_css '.hint', text: t(:field_script_type_hint) }
+
+      it { should have_field 'Script', type: 'textarea' }
+      it { should have_css '.hint', text: t(:field_script_hint) }
+    end
+  end
+
+  context 'actions' do
+    context 'with existing record' do
+      let(:mock) { FactoryGirl.create :mock }
+
+      it { should have_css "a[href='#{duckrails_mock_path(mock)}'][data-method='delete'][data-confirm='#{t(:delete_mock_confirmation)}']", text: t(:delete) }
+    end
+
+    context 'with new record' do
+      let(:mock) { FactoryGirl.build :mock }
+
+      it { should_not have_css 'a', text: t(:delete) }
+    end
+
+    it { should have_css "a[href='#{duckrails_mocks_path}']", text: t(:cancel) }
+    it { should have_css "input[type='submit'][value='#{t(:save)}']" }
   end
 end

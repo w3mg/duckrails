@@ -7,7 +7,7 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
 
   before do
     assign :mock, mock
-    render partial: 'form.html.erb'
+    render partial: 'form'
   end
 
   subject { rendered }

@@ -167,6 +167,7 @@ module Duckrails
       let(:valid) { nil }
 
       before do
+        expect(controller).to receive(:mock_params).and_call_original
         expect_any_instance_of(Mock).to receive(:save).once.and_return(valid)
 
         put :update, id: mock.id, duckrails_mock: { name: 'Updated Name' }

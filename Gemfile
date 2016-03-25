@@ -29,4 +29,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'rspec-matchers-controller_filters'
+  gem 'capybara'
 end

@@ -23,7 +23,7 @@
 
       <tbody>
         <% @mocks.each do |mock| %>
-          <tr>
+          <tr data-mock-id="<%= mock.id %>">
             <td>
               <%= mock.name %>
             </td>
@@ -37,14 +37,14 @@
             </td>
 
             <td class="actions">
-              <%= link_to edit_duckrails_mock_path(mock), class: 'button tiny' do %>
+              <%= link_to edit_duckrails_mock_path(mock), class: 'button tiny edit' do %>
                 <i class="fa fa-edit"></i>
               <% end %>
 
               <%= link_to duckrails_mock_path(mock), method: :delete,
                                            data: {
                                              confirm: t(:mock_deletion_confirmation)
-                                           }, class: 'button tiny' do %>
+                                           }, class: 'button tiny delete' do %>
                 <i class="fa fa-remove"></i>
               <% end %>
             </td>

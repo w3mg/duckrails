@@ -10,12 +10,12 @@ describe 'Dynamic routes' do
     Duckrails::Application.routes_reloader.reload!
   end
 
-  Duckrails::Router::METHODS.each do |method|
-    context "Serving mocks with #{method}" do
-      let(:request_method) { method }
+  Duckrails::Router::METHODS.each do |current_method|
+    context "Serving mocks with #{current_method}" do
+      let(:request_method) { current_method }
 
       it 'should serve the mock' do
-        expect("#{method}": route_path).to route_to({
+        expect(current_method => route_path).to route_to({
           controller: 'duckrails/mocks',
           action: 'serve_mock',
           duckrails_mock_id: mock.id,

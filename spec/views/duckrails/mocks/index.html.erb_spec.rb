@@ -46,11 +46,11 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
           expect(subject).to have_css 'tbody tr', count: mocks.size
 
           mocks.each do |mock|
-            expect(subject).to have_css 'tbody tr td', text: mock.name
-            expect(subject).to have_css 'tbody tr td', text: mock.request_method
-            expect(subject).to have_css 'tbody tr td', text: mock.route_path
-            expect(subject).to have_css "tbody tr td.actions a[href='#{view.edit_duckrails_mock_path(mock)}']"
-            expect(subject).to have_css "tbody tr td.actions a[href='#{view.duckrails_mock_path(mock)}'][data-method='delete']"
+            expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td", text: mock.name
+            expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td", text: mock.request_method
+            expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td", text: mock.route_path
+            expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td.actions a[href='#{view.edit_duckrails_mock_path(mock)}']"
+            expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td.actions a[href='#{view.duckrails_mock_path(mock)}'][data-method='delete']"
           end
         end
       end

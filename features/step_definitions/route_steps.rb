@@ -6,6 +6,10 @@ When /^I visit the mocks page$/ do
   visit duckrails_mocks_path
 end
 
+When /^I visit the new mock page$/ do
+  visit new_duckrails_mock_path
+end
+
 Then /^I should be on the home page$/ do
   expect(page).to have_current_path(root_path)
 end

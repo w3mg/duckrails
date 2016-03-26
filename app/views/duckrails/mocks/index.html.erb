@@ -1,20 +1,24 @@
 <% title 'Mocks' %>
 
-<h1>Mocks</h1>
+<h1><%= t :mocks %></h1>
+
 <p class="page-guide">
-  In this page you can view your current mocks.
+  <%= t :mocks_index_page_guide %>
 </p>
-<% if @mocks.empty? %>
+
+<% if @mocks.blank? %>
   <div class="alert-box warning">
-    No mocks. The duck is lonely.
+    <%= t :no_mocks_warning %>
   </div>
 <% else %>
   <table class="mocks">
       <thead>
-          <th>Name</th>
-          <th>Method</th>
-          <th>Route</th>
-          <td>Actions</td>
+        <tr>
+          <th><%= t :mock_name %></th>
+          <th><%= t :mock_method %></th>
+          <th><%= t :mock_route %></th>
+          <th><%= t :mock_actions %></th>
+        </tr>
       <thead>
 
       <tbody>
@@ -39,7 +43,7 @@
 
               <%= link_to duckrails_mock_path(mock), method: :delete,
                                            data: {
-                                             confirm: 'Are you sure you want to delete this mock?'
+                                             confirm: t(:mock_deletion_confirmation)
                                            }, class: 'button tiny' do %>
                 <i class="fa fa-remove"></i>
               <% end %>
@@ -61,7 +65,7 @@
     <div class="small-12 columns">
       <%= link_to new_duckrails_mock_path, class: 'button' do %>
         <i class="fa fa-plus"></i>
-        <span>Create new mock</span>
+        <span><%= t :create_new_mock %></span>
       <% end %>
     </div>
   </div>

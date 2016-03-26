@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
-  let(:title) { t('Home') }
   let(:mock) { Duckrails::Mock.new(headers: [FactoryGirl.build(:header)]) }
   let(:page) { Capybara::Node::Simple.new(rendered) }
 

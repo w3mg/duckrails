@@ -30,4 +30,8 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-matchers-controller_filters'
   gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'capybara-webkit'
+  gem 'cucumber-rails', :require => false
+  gem 'selenium-webdriver', '2.53.0'
 end

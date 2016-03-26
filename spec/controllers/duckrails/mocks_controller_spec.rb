@@ -4,11 +4,11 @@ module Duckrails
   RSpec.describe Duckrails::MocksController, type: :controller do
     describe 'action callbacks' do
       context '#load_mock' do
-        it { should execute_before_filter :load_mock, :on => :edit, with: { id: 'foo' } }
-        it { should execute_before_filter :load_mock, :on => :update, with: { id: 'foo' } }
-        it { should execute_before_filter :load_mock, :on => :destroy, with: { id: 'foo' } }
-        it { should_not execute_before_filter :load_mock, :on => :index }
-        it { should_not execute_before_filter :load_mock, :on => :new }
+        it { should execute_before_action :load_mock, :on => :edit, with: { id: 'foo' } }
+        it { should execute_before_action :load_mock, :on => :update, with: { id: 'foo' } }
+        it { should execute_before_action :load_mock, :on => :destroy, with: { id: 'foo' } }
+        it { should_not execute_before_action :load_mock, :on => :index }
+        it { should_not execute_before_action :load_mock, :on => :new }
 
         describe '#serve_mock' do
           let(:mock) { FactoryGirl.build :mock }
@@ -19,20 +19,20 @@ module Duckrails
             Duckrails::Application.routes_reloader.reload!
           end
 
-          it { should_not execute_before_filter :load_mock, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
-          it { should_not execute_before_filter :verify_authenticity_token, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
-          it { should_not execute_after_filter :reload_routes, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+          it { should_not execute_before_action :load_mock, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+          it { should_not execute_before_action :verify_authenticity_token, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
+          it { should_not execute_after_action :reload_routes, :on => :serve_mock, with: { id: mock.id, duckrails_mock_id: mock.id } }
         end
       end
 
       context '#reload_routes' do
         let(:mock) { FactoryGirl.create(:mock) }
 
-        it { should execute_after_filter :reload_routes, :on => :update, with: { id: mock.id } }
-        it { should execute_after_filter :reload_routes, :on => :create }
-        it { should execute_after_filter :reload_routes, :on => :destroy, with: { id: mock.id } }
-        it { should_not execute_after_filter :reload_routes, :on => :index }
-        it { should_not execute_after_filter :reload_routes, :on => :new }
+        it { should execute_after_action :reload_routes, :on => :update, with: { id: mock.id } }
+        it { should execute_after_action :reload_routes, :on => :create }
+        it { should execute_after_action :reload_routes, :on => :destroy, with: { id: mock.id } }
+        it { should_not execute_after_action :reload_routes, :on => :index }
+        it { should_not execute_after_action :reload_routes, :on => :new }
       end
     end
 

@@ -24,6 +24,7 @@ module Duckrails
       if @mock.save
         redirect_to duckrails_mocks_path, flash: { info: 'The mock was successfully updated.' }
       else
+        @skip_reloading = true
         render :edit
       end
     end
@@ -34,6 +35,7 @@ module Duckrails
       if @mock.save
         redirect_to duckrails_mocks_path, flash: { info: 'The mock was created successfully.' }
       else
+        @skip_reloading = true
         render :new
       end
     end
@@ -97,7 +99,7 @@ module Duckrails
     end
 
     def reload_routes
-      Duckrails::Application.routes_reloader.reload!
+      Duckrails::Application.routes_reloader.reload! unless @skip_reloading
     end
 
     def mock_params

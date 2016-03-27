@@ -109,6 +109,7 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    libxml-ruby (2.8.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -236,6 +237,7 @@ DEPENDENCIES
   foundation-rails
   jquery-rails
   kaminari
+  libxml-ruby
   mysql2
   rails (= 4.2.5.2)
   rest-client

@@ -11,6 +11,7 @@ gem 'mysql2'
 gem 'cocoon'
 gem 'kaminari'
 gem 'rest-client'
+gem 'libxml-ruby'
 
 group :development, :test do
   gem 'byebug'

@@ -1,4 +1,5 @@
 require 'duckrails/router'
+require 'libxml'
 
 module Duckrails
   class MocksController < ApplicationController

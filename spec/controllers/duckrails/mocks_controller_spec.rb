@@ -234,6 +234,7 @@ module Duckrails
       let(:body_content) { nil }
       let(:script_type) { nil }
       let(:script) { nil }
+      let(:script_body) { nil }
       let(:headers) { nil }
       let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
       let(:body_content) { 'Hello world' }
@@ -249,7 +250,7 @@ module Duckrails
 
         Duckrails::Application.routes_reloader.reload!
 
-        expect(controller).to receive(:evaluate_content).with(body_type, body_content).once.and_call_original
+        expect(controller).to receive(:evaluate_content).with(body_type, body_content).once.and_call_original unless script_body
         expect(controller).to receive(:evaluate_content).with(script_type, script, true).once.and_call_original
       end
 
@@ -290,7 +291,8 @@ module Duckrails
         let(:script_headers) { '[{ name: "Header 1", value: "Override 1" }, { name: "Header 3", value: "New Header" }]' }
         let(:content_type) { 'application/duckrails' }
         let(:status_code) { 418 }
-        let(:script) { "<%= { headers: #{script_headers}, content_type: '#{content_type}', status_code: #{status_code} }.to_json %>" }
+        let(:script_body) { '<h1>Overriden body</h1>' }
+        let(:script) { "<%= { headers: #{script_headers}, content_type: '#{content_type}', status_code: #{status_code}, body: '#{script_body}' }.to_json %>" }
 
         context 'without headers' do
           it 'should respond with mock\'s body, override content, status & add new headers' do
@@ -298,7 +300,7 @@ module Duckrails
 
             get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
 
-            expect(response.body).to eq body_content
+            expect(response.body).to eq script_body
             expect(response.content_type).to eq content_type
             expect(response.status).to eq status_code
             expect(response.headers['Header 1']).to eq 'Override 1'
@@ -316,7 +318,7 @@ module Duckrails
 
             get :serve_mock, id: mock.id, duckrails_mock_id: mock.id
 
-            expect(response.body).to eq body_content
+            expect(response.body).to eq script_body
             expect(response.content_type).to eq content_type
             expect(response.status).to eq status_code
             expect(response.headers['Header 1']).to eq 'Override 1'

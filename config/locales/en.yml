@@ -48,3 +48,4 @@ en:
   mock_route: "Route"
   mock_actions: "Actions"
   mock_deletion_confirmation: "Are you sure you want to delete this mock?"
+  home: "Home"

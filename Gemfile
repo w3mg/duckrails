@@ -20,7 +20,6 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  gem 'table_flipper'
 end
 
 group :test do
@@ -34,4 +33,5 @@ group :test do
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'selenium-webdriver', '2.53.0'
+  gem 'table_flipper'
 end

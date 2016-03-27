@@ -95,6 +95,8 @@ module Duckrails
       force_json ? JSON.parse(result.blank? ? '{}' : result) : result
     rescue StandardError => error
       response.headers['Duckrails-Error'] = error.to_s
+      logger.error error.message
+      logger.error error.backtrace.join '\n'
       nil
     end
 

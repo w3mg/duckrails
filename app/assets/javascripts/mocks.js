@@ -10,7 +10,6 @@ $(function(){
       $tabLink.addClass('error');
 
       if (!first_error_tab) {
-        console.log('activating: ', elementId);
         first_error_tab = $tabLink;
       }
     }

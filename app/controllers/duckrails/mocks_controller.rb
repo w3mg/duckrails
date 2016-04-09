@@ -97,7 +97,7 @@ module Duckrails
           end
           context = ExecJS.compile("parameters = #{params.to_json}; headers = #{headers.to_json}")
           context.exec script
-      end
+      end unless script.blank?
 
       force_json ? JSON.parse(result.blank? ? '{}' : result) : result
     rescue StandardError => error

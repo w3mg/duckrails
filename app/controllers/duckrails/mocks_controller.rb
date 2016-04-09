@@ -80,17 +80,17 @@ module Duckrails
     def evaluate_content(script_type, script, force_json = false)
       return nil unless script_type.present?
 
-      context_variables = {
-        response: response,
-        request: request,
-        parameters: params
-      }
-
       result = case script_type
         when Duckrails::Mock::SCRIPT_TYPE_STATIC
           script
         when Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY
-          Erubis::Eruby.new(script).evaluate(variables)
+          context_variables = {
+            response: response,
+            request: request,
+            parameters: params
+          }
+
+          Erubis::Eruby.new(script).evaluate(context_variables)
         when Duckrails::Mock::SCRIPT_TYPE_JS
           headers = request.headers.select do |header|
             header[1].is_a? String
@@ -103,7 +103,7 @@ module Duckrails
     rescue StandardError => error
       response.headers['Duckrails-Error'] = error.to_s
       logger.error error.message
-      logger.error error.backtrace.join '\n'
+      logger.error error.backtrace.join "\n"
       nil
     end
 

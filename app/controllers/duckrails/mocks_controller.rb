@@ -80,17 +80,23 @@ module Duckrails
     def evaluate_content(script_type, script, force_json = false)
       return nil unless script_type.present?
 
+      context_variables = {
+        response: response,
+        request: request,
+        parameters: params
+      }
+
       result = case script_type
         when Duckrails::Mock::SCRIPT_TYPE_STATIC
           script
         when Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY
-          variables = {
-            response: response,
-            request: request,
-            parameters: params
-          }
-
           Erubis::Eruby.new(script).evaluate(variables)
+        when Duckrails::Mock::SCRIPT_TYPE_JS
+          headers = request.headers.select do |header|
+            header[1].is_a? String
+          end
+          context = ExecJS.compile("parameters = #{params.to_json}; headers = #{headers.to_json}")
+          context.exec script
       end
 
       force_json ? JSON.parse(result.blank? ? '{}' : result) : result

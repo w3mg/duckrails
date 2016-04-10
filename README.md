@@ -25,9 +25,13 @@ You can find DuckRails' guides [here](http://www.arubystory.com/p/duckrails-tuto
 
 ### Example
 
+Mocks index Page
+
+![Mocks index page](http://i.imgur.com/lD1fArF.png)
+
 Setting general mock properties
 
-![General mock properties](http://i.imgur.com/6fsHl1e.png)
+![General mock properties](http://i.imgur.com/aBPIPUe.png)
 
 Defining the response body
 
@@ -45,6 +49,15 @@ Upon save the route is becoming available to the application and you can use the
 
 ![Request](http://i.imgur.com/NaCIqs9.png)
 ![Headers](http://i.imgur.com/1jZciKH.png)
+
+## Supported response functionality
+
+You can define static or dynamic responses for a mock.
+
+Currently supported dynamic types are:
+
+- Embedded ruby
+- Javascript
 
 ### Embedded ruby
 

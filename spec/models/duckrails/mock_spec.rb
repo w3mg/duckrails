@@ -87,12 +87,12 @@ module Duckrails
 
       context 'uniqueness' do
         context '#name' do
-          subject { FactoryGirl.build :mock }
+          subject { FactoryGirl.build :mock, name: 'Default mock' }
 
           it { should validate_uniqueness_of(:name) }
 
           it 'should validate uniqueness without case sensitivity' do
-            FactoryGirl.create(:mock)
+            FactoryGirl.create(:mock, name: 'Default mock')
             mock = FactoryGirl.build(:mock, name: 'Default MOCK')
             expect(mock).to be_invalid
             expect(mock.errors[:name]).to include('has already been taken')
@@ -100,19 +100,18 @@ module Duckrails
         end
 
         context '#route_path' do
-          it 'should not allow duplicates with same methods' do
-            FactoryGirl.create(:mock)
+          it 'should allow duplicates with same methods' do
+            FactoryGirl.create(:mock, route_path: '/a_mock')
 
-            mock = FactoryGirl.build(:mock)
-            expect(mock).to be_invalid
-            expect(mock.errors[:route_path]).to include 'has already been taken'
+            mock = FactoryGirl.build(:mock, route_path: '/a_mock')
+            expect(mock).to be_valid
           end
 
           it 'should allow duplicates with different methods' do
-            FactoryGirl.create(:mock)
+            FactoryGirl.create(:mock, route_path: '/a_mock')
 
-            mock = FactoryGirl.build(:mock, request_method: 'post')
-            expect(mock).to be_invalid
+            mock = FactoryGirl.build(:mock, request_method: 'post', route_path: '/a_mock')
+            expect(mock).to be_valid
             expect(mock.errors[:route_path].size).to eq 0
           end
         end
@@ -160,12 +159,11 @@ module Duckrails
         end
 
         context 'with action served by the mocks controller, by the #serve_mock method but for another mock' do
-          it 'should be invalid' do
-            FactoryGirl.create :mock
-            mock = FactoryGirl.build :mock
+          it 'should be valid' do
+            FactoryGirl.create :mock, route_path: '/a_mock'
+            mock = FactoryGirl.build :mock, route_path: '/a_mock'
 
-            expect(mock).to be_invalid
-            expect(mock.errors[:route_path]).to include 'has already been taken'
+            expect(mock).to be_valid
           end
         end
 
@@ -175,6 +173,21 @@ module Duckrails
             mock.name = 'Changed Default Name'
             expect(mock).to be_valid
           end
+        end
+      end
+    end
+
+    context 'scopes' do
+      context 'default scope' do
+        before do
+          3.times do |i|
+            FactoryGirl.create :mock, id: i, mock_order: (4 - i)
+          end
+        end
+
+        it 'should bring the mocks order by the mock_order column' do
+          expect(Duckrails::Mock.pluck(:id)).to eq [2, 1, 0]
+          expect(Duckrails::Mock.unscoped.pluck(:id)).to eq [0, 1, 2]
         end
       end
     end
@@ -230,6 +243,21 @@ module Duckrails
     end
 
     context 'callbacks' do
+      describe '#before_save' do
+        let(:mock) { FactoryGirl.build(:mock, mock_order: nil) }
+
+        it 'should set order to 0 if no other mocks exist' do
+          mock.save
+          expect(mock.mock_order).to eq 1
+        end
+
+        it 'should set order to max if other mocks exist' do
+          FactoryGirl.create :mock, mock_order: 100
+          mock.save
+          expect(mock.mock_order).to eq 101
+        end
+      end
+
       describe '#after_save' do
         let(:mock) { FactoryGirl.build(:mock) }
 

@@ -9,7 +9,7 @@ class Duckrails::Mock < ActiveRecord::Base
   validates :status, presence: true
   validates :request_method, presence: true
   validates :content_type, presence: true
-  validates :route_path, presence: true, route: true, uniqueness: { scope: :request_method }
+  validates :route_path, presence: true, route: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :body_type, inclusion: { in: [SCRIPT_TYPE_STATIC,
                                           SCRIPT_TYPE_EMBEDDED_RUBY,
@@ -25,8 +25,11 @@ class Duckrails::Mock < ActiveRecord::Base
   validates :script, presence: { unless: 'script_type.blank?' }
   validates :active, presence: { if: 'active.nil?' }
 
+  before_save :set_order
   after_save :register
   after_destroy :unregister
+
+  default_scope { order(mock_order: :asc) }
 
   def dynamic?
     body_type != SCRIPT_TYPE_STATIC
@@ -43,6 +46,10 @@ class Duckrails::Mock < ActiveRecord::Base
   #########
   protected
   #########
+
+  def set_order
+    self.mock_order ||= (Duckrails::Mock.maximum(:mock_order) || 0) + 1
+  end
 
   def register
     Duckrails::Router.register_mock self

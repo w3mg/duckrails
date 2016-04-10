@@ -53,3 +53,4 @@ en:
   mock_activation_confirmation: "Are you sure you want to activate this mock?"
   mock_deactivation_confirmation: "Are you sure you want to deactivate this mock?"
   home: "Home"
+  change_mocks_order: "Change mocks order"

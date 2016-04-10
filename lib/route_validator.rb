@@ -9,7 +9,7 @@ class RouteValidator < ActiveModel::EachValidator
       route = Rails.application.routes.recognize_path(value, method: record.request_method)
       # If the route exists, then it should belong to the same record in order to be valid
       # or else we would allow many mocks to have the same route
-      valid = route[:controller] == 'duckrails/mocks' && route[:action] == 'serve_mock' && route[:duckrails_mock_id] == record.id
+      valid = route[:controller] == 'duckrails/mocks' && route[:action] == 'serve_mock'
     rescue URI::InvalidURIError => exception
       # Bad URI
       record.errors[attribute] << (options[:message] || 'is not a valid route')

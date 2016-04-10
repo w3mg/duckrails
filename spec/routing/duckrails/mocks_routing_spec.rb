@@ -30,6 +30,10 @@ describe 'Routes for mocks' do
     expect(patch: '/duckrails/mocks/1').to route_to(controller: 'duckrails/mocks', action: 'update', id: '1')
   end
 
+  it 'should route to mocks update order' do
+    expect(put: '/duckrails/mocks/update_order').to route_to(controller: 'duckrails/mocks', action: 'update_order')
+  end
+
   it 'should route to mocks destroy' do
     expect(delete: '/duckrails/mocks/1').to route_to(controller: 'duckrails/mocks', action: 'destroy', id: '1')
   end

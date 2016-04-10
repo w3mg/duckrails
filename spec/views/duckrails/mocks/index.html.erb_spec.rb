@@ -30,6 +30,8 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
     context 'without mocks' do
       it { should have_css '.alert-box.warning', text: t(:no_mocks_warning) }
       it { should_not have_css 'table.mocks' }
+
+      it { should_not have_css "a.button[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
     end
 
     context 'with mocks' do
@@ -73,6 +75,10 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
         let(:per_page) { 2 }
 
         it { should have_css 'nav.pagination'}
+      end
+
+      context 'actions' do
+        it { should have_css "a.button[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
       end
     end
 

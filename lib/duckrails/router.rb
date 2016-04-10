@@ -13,6 +13,7 @@ module Duckrails
       def register_current_mocks
         REGISTERED_MOCKS << Duckrails::Mock.pluck(:id)
         REGISTERED_MOCKS.flatten!
+        REGISTERED_MOCKS.uniq!
       end
 
       def unregister_mock(mock)
@@ -20,17 +21,22 @@ module Duckrails
       end
 
       def load_mock_routes!
-        REGISTERED_MOCKS.each do |mock_id|
-          define_route mock_id
+        mocks =  REGISTERED_MOCKS.map do |mock_id|
+          Duckrails::Mock.find mock_id
+        end
+
+        mocks = mocks.sort_by{ |mock| mock.mock_order }
+
+        mocks.each do |mock|
+          define_route mock
         end
       end
 
       protected
 
-      def define_route(mock_id)
-        mock = Duckrails::Mock.find mock_id
-
+      def define_route(mock)
         return unless mock.active?
+
         Duckrails::Application.routes.draw do
           self.send(:match, mock.route_path, to: 'duckrails/mocks#serve_mock', defaults: { duckrails_mock_id: mock.id }, via: mock.request_method)
         end

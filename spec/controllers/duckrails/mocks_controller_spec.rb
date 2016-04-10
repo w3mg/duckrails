@@ -11,6 +11,8 @@ module Duckrails
         it { should execute_before_action :load_mock, :on => :deactivate, with: { id: 'foo' } }
         it { should_not execute_before_action :load_mock, :on => :index }
         it { should_not execute_before_action :load_mock, :on => :new }
+        it { should_not execute_before_action :load_mock, :on => :create }
+        it { should_not execute_before_action :load_mock, :on => :update_order }
 
         describe '#serve_mock' do
           let(:mock) { FactoryGirl.build :mock }
@@ -35,6 +37,7 @@ module Duckrails
         it { should execute_after_action :reload_routes, :on => :destroy, with: { id: mock.id } }
         it { should execute_after_action :reload_routes, :on => :activate, with: { id: mock.id } }
         it { should execute_after_action :reload_routes, :on => :deactivate, with: { id: mock.id } }
+        it { should execute_after_action :reload_routes, :on => :update_order }
         it { should_not execute_after_action :reload_routes, :on => :index }
         it { should_not execute_after_action :reload_routes, :on => :new }
       end
@@ -42,32 +45,51 @@ module Duckrails
 
     describe "GET #index" do
       let(:page) { nil }
+      let(:sort) { nil }
 
       before do
-        expect(Mock).to receive(:page).with(page).and_call_original
+        if sort
+          expect(Mock).to receive(:all).at_least(1).times.and_call_original
+          expect(Mock).to receive(:page).never
+        else
+          expect(Mock).to receive(:page).with(page).and_call_original
+        end
 
-        get :index, page: page
+        get :index, page: page, sort: sort
       end
 
-      context 'with page parameter' do
-        let(:page) { '10' }
+      context 'without sort parameter' do
+        context 'with page parameter' do
+          let(:page) { '10' }
 
-        describe 'response' do
-          subject { response }
+          describe 'response' do
+            subject { response }
 
-          it { should have_http_status :success }
-          it { should render_template :index  }
+            it { should have_http_status :success }
+            it { should render_template :index  }
+          end
+        end
+
+        context 'without page parameter' do
+          let(:page) { nil }
+
+          describe 'response' do
+            subject { response }
+
+            it { should have_http_status :success }
+            it { should render_template :index  }
+          end
         end
       end
 
-      context 'without page parameter' do
-        let(:page) { nil }
+      context 'with sort parameter' do
+        let(:sort) { true }
 
         describe 'response' do
           subject { response }
 
           it { should have_http_status :success }
-          it { should render_template :index  }
+          it { should render_template :sort_index }
         end
       end
     end
@@ -124,7 +146,7 @@ module Duckrails
         expect(controller).to receive(:mock_params).and_call_original
         expect_any_instance_of(Mock).to receive(:save).once.and_return(valid)
 
-        post :create, id: mock.id, duckrails_mock: FactoryGirl.attributes_for(:mock)
+        post :create, id: mock.id, duckrails_mock: FactoryGirl.attributes_for(:mock, name: 'Default mock')
       end
 
       context 'with valid mock' do
@@ -213,6 +235,28 @@ module Duckrails
             expect(subject.name).to eq 'Updated Name'
           end
         end
+      end
+    end
+
+    describe 'PUT #update_order' do
+      before do
+        FactoryGirl.sequences.clear
+        3.times do |i|
+          FactoryGirl.create(:mock, mock_order: nil)
+        end
+      end
+
+      it 'should update orders' do
+        old_order = Duckrails::Mock.pluck(:id)
+        expect(old_order).to eq [1, 2, 3]
+
+        put :update_order, order: { 0 => { id: 1, order: 3 }, 1 => { id: 3, order: 1} }
+
+        new_order = Duckrails::Mock.pluck(:id)
+        expect(new_order).not_to eq old_order
+        expect(new_order).to eq [3, 2, 1]
+
+        expect(response.body).to be_blank
       end
     end
 

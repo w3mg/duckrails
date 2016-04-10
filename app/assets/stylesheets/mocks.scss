@@ -30,3 +30,39 @@ table {
     }
   }
 }
+
+div.mock {
+  clear: both;
+
+  border: 1px solid #666;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px;
+  min-height: 50px;
+  cursor: move;
+
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+  }
+
+  .mock-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+  }
+}
+
+.sortable-placeholder {
+  border: 1px dashed #CCC;
+  background-color: #f9f9f9;
+  min-height: 50px;
+  margin-bottom: 10px;
+}
+
+.sortable {
+  display: list-item;
+  list-style: none;
+}

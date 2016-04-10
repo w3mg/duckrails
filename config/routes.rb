@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         put :activate
         put :deactivate
       end
+
+      collection do
+        put :update_order
+      end
     end
   end
 

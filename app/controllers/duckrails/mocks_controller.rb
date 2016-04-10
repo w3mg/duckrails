@@ -4,12 +4,17 @@ require 'libxml'
 module Duckrails
   class MocksController < ApplicationController
     before_action :load_mock, only: [:edit, :update, :destroy, :deactivate, :activate]
-    after_action :reload_routes, only: [:update, :create, :destroy, :deactivate, :activate]
+    after_action :reload_routes, only: [:update, :create, :destroy, :deactivate, :activate, :update_order]
 
     skip_before_action :verify_authenticity_token, :only => [:serve_mock]
 
     def index
-      @mocks = Duckrails::Mock.page params[:page]
+      if params[:sort]
+        @mocks = Duckrails::Mock.all
+        render :sort_index
+      else
+        @mocks = Duckrails::Mock.page params[:page]
+      end
     end
 
     def edit
@@ -28,6 +33,17 @@ module Duckrails
         @skip_reloading = true
         render :edit
       end
+    end
+
+    def update_order
+      Duckrails::Mock.transaction do
+        params[:order].values.each do |mock_order|
+          mock = Duckrails::Mock.find(mock_order[:id])
+          mock.update_attribute(:mock_order, mock_order[:order])
+        end
+      end
+
+      render nothing: true
     end
 
     def create

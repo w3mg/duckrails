@@ -1,1 +1,4 @@
-$(function(){ $(document).foundation(); });
+$(function(){
+  $(document).foundation();
+  $('.sortable').sortable();
+});

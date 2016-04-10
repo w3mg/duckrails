@@ -84,6 +84,11 @@
 <div class="page-actions">
   <div class="row">
     <div class="small-12 columns">
+      <%= link_to duckrails_mocks_path(sort: true), class: 'button secondary' do %>
+        <i class="fa fa-bars"></i>
+        <span><%= t :change_mocks_order %></span>
+      <% end if @mocks.size > 1 %>
+
       <%= link_to new_duckrails_mock_path, class: 'button' do %>
         <i class="fa fa-plus"></i>
         <span><%= t :create_new_mock %></span>

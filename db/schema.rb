@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410092607) do
+ActiveRecord::Schema.define(version: 20160410174605) do
 
   create_table "headers", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 20160410092607) do
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
     t.boolean  "active",                       default: true, null: false
+    t.integer  "mock_order",     limit: 4,                    null: false
   end
 
   add_index "mocks", ["name"], name: "index_mocks_on_name", unique: true, using: :btree
-  add_index "mocks", ["request_method", "route_path"], name: "index_mocks_on_request_method_and_route_path", unique: true, using: :btree
 
   add_foreign_key "headers", "mocks", on_delete: :cascade
 end

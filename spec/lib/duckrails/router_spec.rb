@@ -68,14 +68,17 @@ module Duckrails
 
     describe '.load_mock_routes!' do
       before do
-        expect(Duckrails::Mock).to receive(:pluck).with(:id).and_return([1, 2, 3])
+        3.times do |i|
+          FactoryGirl.create :mock, id: i
+        end
+
         Router.register_current_mocks
       end
 
       it 'should define routes for current mocks' do
-        expect(Router).to receive(:define_route).with(1)
-        expect(Router).to receive(:define_route).with(2)
-        expect(Router).to receive(:define_route).with(3)
+        Duckrails::Mock.all.each do |mock|
+          expect(Router).to receive(:define_route).with(mock)
+        end
 
         Router.load_mock_routes!
       end
@@ -84,10 +87,6 @@ module Duckrails
     describe '#protected .define_route(mock_id)' do
       let(:active) { nil }
       let(:mock) { FactoryGirl.build(:mock, id: 1, active: active) }
-
-      before do
-        expect(Duckrails::Mock).to receive(:find).with(1).and_return(mock)
-      end
 
       context 'for active mock' do
         let(:active) { true }
@@ -101,7 +100,7 @@ module Duckrails
                                                                                     },
                                                                                     via: mock.request_method).and_raise('CALLED')
 
-          expect{Router.send(:define_route, 1)}.to raise_error(/CALLED/)
+          expect{Router.send(:define_route, mock)}.to raise_error(/CALLED/)
         end
       end
 
@@ -117,7 +116,7 @@ module Duckrails
                                                                                     },
                                                                                     via: mock.request_method).and_raise('CALLED')
 
-          expect{Router.send(:define_route, 1)}.not_to raise_error
+          expect{Router.send(:define_route, mock)}.not_to raise_error
         end
       end
     end

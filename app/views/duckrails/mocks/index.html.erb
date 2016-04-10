@@ -17,6 +17,7 @@
           <th><%= t :mock_name %></th>
           <th><%= t :mock_method %></th>
           <th><%= t :mock_route %></th>
+          <th class="text-center"><%= t :mock_active %></th>
           <th><%= t :mock_actions %></th>
         </tr>
       <thead>
@@ -36,6 +37,12 @@
               <%= mock.route_path %>
             </td>
 
+            <td class="text-center">
+              <span class="<%= mock.active? ? 'active' : 'inactive' %>">
+                <i class="fa fa-<%= mock.active? ? 'check-square-o' : 'square-o' %>"></i>
+              </span>
+            </td>
+
             <td class="actions">
               <%= link_to edit_duckrails_mock_path(mock), class: 'button tiny edit' do %>
                 <i class="fa fa-edit"></i>
@@ -47,6 +54,20 @@
                                            }, class: 'button tiny delete' do %>
                 <i class="fa fa-remove"></i>
               <% end %>
+
+              <%= link_to deactivate_duckrails_mock_path(mock), method: :put,
+                                           data: {
+                                             confirm: t(:mock_deactivation_confirmation)
+                                           }, class: 'button tiny deactivate secondary' do %>
+                <i class="fa fa-pause"></i>
+              <% end if mock.active? %>
+
+              <%= link_to activate_duckrails_mock_path(mock), method: :put,
+                                           data: {
+                                             confirm: t(:mock_activation_confirmation)
+                                           }, class: 'button tiny activate success' do %>
+                <i class="fa fa-play"></i>
+              <% end unless mock.active? %>
             </td>
           </tr>
         <% end %>

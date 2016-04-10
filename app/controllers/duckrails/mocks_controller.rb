@@ -3,8 +3,8 @@ require 'libxml'
 
 module Duckrails
   class MocksController < ApplicationController
-    before_action :load_mock, only: [:edit, :update, :destroy]
-    after_action :reload_routes, only: [:update, :create, :destroy]
+    before_action :load_mock, only: [:edit, :update, :destroy, :deactivate, :activate]
+    after_action :reload_routes, only: [:update, :create, :destroy, :deactivate, :activate]
 
     skip_before_action :verify_authenticity_token, :only => [:serve_mock]
 
@@ -45,6 +45,16 @@ module Duckrails
       @mock.delete
       Duckrails::Router.unregister_mock @mock
       redirect_to duckrails_mocks_path, flash: { info: "Mock '#{@mock.name}' was deleted successfully." }
+    end
+
+    def activate
+      @mock.activate!
+      redirect_to duckrails_mocks_path
+    end
+
+    def deactivate
+      @mock.deactivate!
+      redirect_to duckrails_mocks_path
     end
 
     # This is the one and only action mapped to each mock route

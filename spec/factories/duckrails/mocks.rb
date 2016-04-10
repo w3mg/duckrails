@@ -5,5 +5,6 @@ FactoryGirl.define do
     content_type 'application/json'
     route_path '/mocks/:id'
     name 'Default mock'
+    active true
   end
 end

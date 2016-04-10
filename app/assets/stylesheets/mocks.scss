@@ -16,8 +16,17 @@ table {
       width: 5%;
       white-space: nowrap;
     }
+
     a.button {
       margin-bottom: 0;
+    }
+
+    span.active {
+      color: #31B404;
+    }
+
+    span.inactive {
+      color: #CCCCCC;
     }
   }
 }

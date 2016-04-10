@@ -107,7 +107,7 @@
       <% if @mock.new_record? %>
         &nbsp;
       <% else %>
-        <%= link_to(t(:delete), duckrails_mock_path(@mock), method: :delete, class: 'button alert expand', data: { confirm: t(:delete_mock_confirmation) }) %>
+        <%= link_to(t(:delete), duckrails_mock_path(@mock), method: :delete, class: 'button alert expand', data: { confirm: t(:mock_deletion_confirmation) }) %>
       <% end %>
     </div>
 

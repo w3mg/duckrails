@@ -29,6 +29,10 @@ Mocks index page
 
 ![Mocks index page](http://i.imgur.com/lD1fArF.png)
 
+Changing mocks order
+
+![Change mocks order](http://i.imgur.com/PcaaikA.png)
+
 Setting general mock properties
 
 ![General mock properties](http://i.imgur.com/aBPIPUe.png)

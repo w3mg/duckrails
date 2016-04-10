@@ -34,8 +34,8 @@ table {
 div.mock {
   clear: both;
 
-  border: 1px solid #666;
-  background-color: #f9f9f9;
+  border: 1px solid #80d4ff;
+  background-color: #cceeff;
   margin-bottom: 10px;
   padding: 10px;
   min-height: 50px;
@@ -52,6 +52,17 @@ div.mock {
     font-size: 20px;
     font-weight: bold;
     color: #444;
+  }
+
+  .mock-request-method {
+    color: #004466;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .mock-path {
+    color: #555555;
+    font-weight: bold;
   }
 }
 

@@ -54,3 +54,4 @@ en:
   mock_deactivation_confirmation: "Are you sure you want to deactivate this mock?"
   home: "Home"
   change_mocks_order: "Change mocks order"
+  mocks_sort_index_page_guide: "In this page you can change the order of the mocks. If the same route matches more than one mocks, it will be served by the first mock. Change the order of mocks by dragging and dropping."

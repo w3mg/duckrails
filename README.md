@@ -25,7 +25,7 @@ You can find DuckRails' guides [here](http://www.arubystory.com/p/duckrails-tuto
 
 ### Example
 
-Mocks index Page
+Mocks index page
 
 ![Mocks index page](http://i.imgur.com/lD1fArF.png)
 

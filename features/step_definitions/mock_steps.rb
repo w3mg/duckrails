@@ -1,6 +1,9 @@
-Given /^There are (\d*) mocks$/ do |number|
+Given /^There are (\d*)(?: )?(active|inactive)? mocks$/ do |number, active_status|
+  active = active_status != 'inactive'
+  count = Duckrails::Mock.count
   number.to_i.times do |i|
-    FactoryGirl.create :mock, route_path: "/cucumber/#{i}", name: "Mock:#{i}", id: i
+    index = i + count
+    FactoryGirl.create :mock, route_path: "/cucumber/#{index}", name: "Mock:#{index}", id: index, active: active
   end
 end
 
@@ -10,6 +13,14 @@ end
 
 When /^I click the delete link for mock with id (\d*)$/ do |mock_id|
   page.find("table.mocks tbody tr[data-mock-id='#{mock_id}']").find('a.delete').click
+end
+
+When /^I click the activate link for mock with id (\d*)$/ do |mock_id|
+  page.find("table.mocks tbody tr[data-mock-id='#{mock_id}']").find('a.activate').click
+end
+
+When /^I click the deactivate link for mock with id (\d*)$/ do |mock_id|
+  page.find("table.mocks tbody tr[data-mock-id='#{mock_id}']").find('a.deactivate').click
 end
 
 Then /^There should( not)? be an entry for mock with id (\d*)$/ do |should_not, mock_id|

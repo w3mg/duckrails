@@ -102,7 +102,7 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
     context 'with existing record' do
       let(:mock) { FactoryGirl.create :mock }
 
-      it { should have_css "a[href='#{duckrails_mock_path(mock)}'][data-method='delete'][data-confirm='#{t(:delete_mock_confirmation)}']", text: t(:delete) }
+      it { should have_css "a[href='#{duckrails_mock_path(mock)}'][data-method='delete'][data-confirm='#{t(:mock_deletion_confirmation)}']", text: t(:delete) }
     end
 
     context 'with new record' do

@@ -17,6 +17,14 @@ describe 'Routes for mocks' do
     expect(get: '/duckrails/mocks/1/edit').to route_to(controller: 'duckrails/mocks', action: 'edit', id: '1')
   end
 
+  it 'should route to mocks activate' do
+    expect(put: '/duckrails/mocks/1/activate').to route_to(controller: 'duckrails/mocks', action: 'activate', id: '1')
+  end
+
+  it 'should route to mocks deactivate' do
+    expect(put: '/duckrails/mocks/1/deactivate').to route_to(controller: 'duckrails/mocks', action: 'deactivate', id: '1')
+  end
+
   it 'should route to mocks update' do
     expect(put: '/duckrails/mocks/1').to route_to(controller: 'duckrails/mocks', action: 'update', id: '1')
     expect(patch: '/duckrails/mocks/1').to route_to(controller: 'duckrails/mocks', action: 'update', id: '1')

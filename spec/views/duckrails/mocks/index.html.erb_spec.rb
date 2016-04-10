@@ -6,9 +6,15 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
   let(:page) { Capybara::Node::Simple.new(rendered) }
 
   before do
-    3.times do |i|
-      FactoryGirl.create(:mock, name: "Mock-#{i + 1}", route_path: "/duck/#{i}")
-    end if with_mocks
+    if with_mocks
+      3.times do |i|
+        FactoryGirl.create(:mock, name: "Mock-#{i + 1}", route_path: "/duck/#{i + 1}")
+      end
+
+      2.times do |i|
+        FactoryGirl.create(:mock, name: "Mock-#{i + 4}", route_path: "/duck/#{i + 4}", active: false)
+      end
+    end
 
     assign :mocks, Duckrails::Mock.page(0).per(per_page)
 
@@ -38,6 +44,7 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
         it { should have_css 'thead th', text: t(:mock_name) }
         it { should have_css 'thead th', text: t(:mock_method) }
         it { should have_css 'thead th', text: t(:mock_route) }
+        it { should have_css 'thead th.text-center', text: t(:mock_active) }
         it { should have_css 'thead th', text: t(:mock_actions) }
 
         it 'should display all mocks' do
@@ -52,6 +59,9 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
             expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td.actions a[href='#{view.edit_duckrails_mock_path(mock)}']"
             expect(subject).to have_css "tbody tr[data-mock-id='#{mock.id}'] td.actions a[href='#{view.duckrails_mock_path(mock)}'][data-method='delete']"
           end
+
+          expect(subject).to have_css 'tbody td span.active i.fa.fa-check-square-o', count: 3
+          expect(subject).to have_css 'tbody td span.inactive i.fa.fa-square-o', count: 2
         end
       end
 

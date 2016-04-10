@@ -7,6 +7,8 @@ module Duckrails
         it { should execute_before_action :load_mock, :on => :edit, with: { id: 'foo' } }
         it { should execute_before_action :load_mock, :on => :update, with: { id: 'foo' } }
         it { should execute_before_action :load_mock, :on => :destroy, with: { id: 'foo' } }
+        it { should execute_before_action :load_mock, :on => :activate, with: { id: 'foo' } }
+        it { should execute_before_action :load_mock, :on => :deactivate, with: { id: 'foo' } }
         it { should_not execute_before_action :load_mock, :on => :index }
         it { should_not execute_before_action :load_mock, :on => :new }
 
@@ -31,6 +33,8 @@ module Duckrails
         it { should execute_after_action :reload_routes, :on => :update, with: { id: mock.id } }
         it { should execute_after_action :reload_routes, :on => :create }
         it { should execute_after_action :reload_routes, :on => :destroy, with: { id: mock.id } }
+        it { should execute_after_action :reload_routes, :on => :activate, with: { id: mock.id } }
+        it { should execute_after_action :reload_routes, :on => :deactivate, with: { id: mock.id } }
         it { should_not execute_after_action :reload_routes, :on => :index }
         it { should_not execute_after_action :reload_routes, :on => :new }
       end
@@ -226,7 +230,40 @@ module Duckrails
 
         it { should redirect_to duckrails_mocks_path }
       end
+    end
 
+    describe 'put #activate' do
+      let(:mock) { FactoryGirl.create :mock, active: false }
+
+      before do
+        expect(mock).to receive(:activate!).and_call_original
+        allow(Mock).to receive(:find).twice.and_return(mock)
+
+        put :activate, id: mock.id
+      end
+
+      describe 'response' do
+        subject { response }
+
+        it { should redirect_to duckrails_mocks_path }
+      end
+    end
+
+    describe 'put #deactivate' do
+      let(:mock) { FactoryGirl.create :mock, active: true }
+
+      before do
+        expect(mock).to receive(:deactivate!).and_call_original
+        allow(Mock).to receive(:find).twice.and_return(mock)
+
+        put :deactivate, id: mock.id
+      end
+
+      describe 'response' do
+        subject { response }
+
+        it { should redirect_to duckrails_mocks_path }
+      end
     end
 
     describe '#serve_mock' do

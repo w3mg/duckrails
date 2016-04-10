@@ -1,7 +1,8 @@
 Feature: There is a mocks page with options to do stuff
 
 Background:
-  * There are 3 mocks
+  * There are 3 active mocks
+  * There are 3 inactive mocks
   * I visit the mocks page
   * I should see a link with text 'Create new mock'
   * I should not see a link with text 'View all mocks'
@@ -40,3 +41,31 @@ Scenario: I can select to delete a mock
   And I accept the javascript confirmation
   Then I should be on the mocks page
   And There should not be an entry for mock with id 1
+
+@selenium @javascript
+Scenario: I can activate a mock
+  When I click the activate link for mock with id 4
+  Then I should see a javascript confirmation with text 'Are you sure you want to activate this mock?'
+  When I dismiss the javascript confirmation
+  Then I should be on the mocks page
+  And There should be an entry for mock with id 4
+  When I click the activate link for mock with id 4
+  And I accept the javascript confirmation
+  Then I should be on the mocks page
+  When I click the deactivate link for mock with id 4
+  Then I should see a javascript confirmation with text 'Are you sure you want to deactivate this mock?'
+  And I dismiss the javascript confirmation
+
+@selenium @javascript
+Scenario: I can deactivate a mock
+  When I click the deactivate link for mock with id 1
+  Then I should see a javascript confirmation with text 'Are you sure you want to deactivate this mock?'
+  When I dismiss the javascript confirmation
+  Then I should be on the mocks page
+  And There should be an entry for mock with id 1
+  When I click the deactivate link for mock with id 1
+  And I accept the javascript confirmation
+  Then I should be on the mocks page
+  When I click the activate link for mock with id 4
+  Then I should see a javascript confirmation with text 'Are you sure you want to activate this mock?'
+  And I dismiss the javascript confirmation

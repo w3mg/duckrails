@@ -132,6 +132,7 @@ module Duckrails
                                              :request_method,
                                              :content_type,
                                              :route_path,
+                                             :active,
                                              headers_attributes: [:id,
                                                                   :name,
                                                                   :value,

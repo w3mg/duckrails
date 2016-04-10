@@ -676,6 +676,7 @@ module Duckrails
       let(:parameters) {
         { duckrails_mock: {
           name: 'Name',
+          active: true,
           description: 'Description',
           status: 'Status',
           body_type: 'Body type',

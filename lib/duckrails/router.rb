@@ -21,13 +21,16 @@ module Duckrails
 
       def load_mock_routes!
         REGISTERED_MOCKS.each do |mock_id|
-          define_route Duckrails::Mock.find mock_id
+          define_route mock_id
         end
       end
 
       protected
 
-      def define_route(mock)
+      def define_route(mock_id)
+        mock = Duckrails::Mock.find mock_id
+
+        return unless mock.active?
         Duckrails::Application.routes.draw do
           self.send(:match, mock.route_path, to: 'duckrails/mocks#serve_mock', defaults: { duckrails_mock_id: mock.id }, via: mock.request_method)
         end

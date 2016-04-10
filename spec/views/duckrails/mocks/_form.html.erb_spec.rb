@@ -40,6 +40,9 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
       it { should have_field 'Name', type: 'text' }
       it { should have_css '.hint', text: t(:field_name_hint) }
 
+      it { should have_field 'Active', type: 'checkbox' }
+      it { should have_css '.hint', text: t(:field_active_hint) }
+
       it { should have_field 'Description', type: 'textarea' }
       it { should have_css '.hint', text: t(:field_description_hint) }
 

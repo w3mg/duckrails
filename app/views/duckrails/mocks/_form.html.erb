@@ -11,8 +11,13 @@
       <p><%= t :general_tab_header  %></p>
 
       <div class="row">
-        <div class="small-12 columns">
+        <div class="small-12 medium-10 columns">
           <%= form.input :name, hint: t(:field_name_hint) %>
+        </div>
+
+        <div class="small-12 medium-2 columns text-right">
+          <label>&nbsp;</label>
+          <%= form.input :active, hint: t(:field_active_hint), wrapper_html: { class: 'checkbox-wrapper' } %>
         </div>
       </div>
 
@@ -76,7 +81,6 @@
 
       <div class="row">
         <div class="small-12 columns mock-headers">
-
           <%= form.simple_fields_for :headers do |header_fields| %>
             <%= render partial: 'header_fields', locals: { f: header_fields } %>
           <% end %>

@@ -91,3 +91,17 @@ div.footer {
   color: #f0f0f0;
   padding: 20px 0;
 }
+
+.checkbox-wrapper {
+  padding-top: 8px;
+
+  input {
+    margin-right: 10px;
+  }
+
+  span {
+    &.hint {
+      margin-top: 8px;
+    }
+  }
+}

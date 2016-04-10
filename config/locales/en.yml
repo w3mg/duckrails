@@ -16,6 +16,7 @@ en:
   advanced_tab: "Advanced"
   general_tab_header: "General mock properties"
   field_name_hint: "Enter a name for this mock"
+  field_active_hint: "Status for this mock"
   field_description_hint: "Enter a description"
   field_request_method_hint: "Choose the method that matches this mock"
   field_status_hint: "Enter the HTTP status code of this mock's response"

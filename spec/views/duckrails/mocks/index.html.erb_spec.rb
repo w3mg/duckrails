@@ -84,7 +84,6 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
 
     context 'actions' do
       it { should have_css "a[href='#{new_duckrails_mock_path}']", text: t(:create_new_mock) }
-      it { should have_css "a.button[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
     end
   end
 end

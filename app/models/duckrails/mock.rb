@@ -23,12 +23,21 @@ class Duckrails::Mock < ActiveRecord::Base
                                      allow_blank: true },
                           presence: { unless: 'script.blank?' }
   validates :script, presence: { unless: 'script_type.blank?' }
+  validates :active, presence: { if: 'active.nil?' }
 
   after_save :register
   after_destroy :unregister
 
   def dynamic?
     body_type != SCRIPT_TYPE_STATIC
+  end
+
+  def activate!
+    self.update_attributes!(active: true)
+  end
+
+  def deactivate!
+    self.update_attributes!(active: false)
   end
 
   #########

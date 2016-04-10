@@ -13,6 +13,7 @@ module Duckrails
       it { should respond_to :body_content, :body_content= }
       it { should respond_to :script_type, :script_type= }
       it { should respond_to :script, :script= }
+      it { should respond_to :active, :active=, :active? }
     end
 
     context 'relations' do
@@ -33,6 +34,7 @@ module Duckrails
         it { should validate_presence_of :content_type}
         it { should validate_presence_of :route_path}
         it { should validate_presence_of :name }
+        it { should validate_presence_of :active }
 
         context '#body_type' do
           it 'should not validate presence if body content is empty' do
@@ -193,6 +195,36 @@ module Duckrails
           let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
 
           it { should be true }
+        end
+
+        context 'with js body type' do
+          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_JS }
+
+          it { should be true }
+        end
+      end
+
+      describe '#activate!' do
+        let(:mock) { FactoryGirl.create(:mock, active: false) }
+
+        it 'should activate a mock' do
+          expect(mock.active?).to be false
+          mock.activate!
+          expect(mock.active?).to be true
+          mock.reload
+          expect(mock.active).to be true
+        end
+      end
+
+      describe '#deactivate!' do
+        let(:mock) { FactoryGirl.create(:mock, active: true) }
+
+        it 'should activate a mock' do
+          expect(mock.active?).to be true
+          mock.deactivate!
+          expect(mock.active?).to be false
+          mock.reload
+          expect(mock.active).to be false
         end
       end
     end

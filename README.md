@@ -2,7 +2,7 @@
 
 DuckRails is a development tool.
 
-Its main purpose is to allow developers to quickly mock API endpoints that for many possible reasons can't reach at a specific time.
+Its main purpose is to allow developers to quickly mock API endpoints that for many possible reasons they can't reach at a specific time.
 
 > If it looks like a duck, walks like a duck and quacks like a duck, then it's a duck
 
@@ -10,7 +10,7 @@ Its main purpose is to allow developers to quickly mock API endpoints that for m
 
 ## How it works
 
-The application allows to create new routes dynamically to which developers can assign static or dynamic responses:
+The application allows creating new routes dynamically to which developers can assign static or dynamic responses:
 
 - body
 - headers
@@ -49,7 +49,7 @@ Setting some advanced configuration (delays, dynamic headers, content type & sta
 
 ![Advanced configuration](http://i.imgur.com/wXNVULN.png)
 
-Upon save the route is becoming available to the application and you can use the endpoint:
+Upon save the route becomes available to the application and you can use the endpoint:
 
 ![Request](http://i.imgur.com/NaCIqs9.png)
 ![Headers](http://i.imgur.com/1jZciKH.png)

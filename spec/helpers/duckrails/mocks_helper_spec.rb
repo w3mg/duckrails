@@ -6,7 +6,7 @@ module Duckrails
       subject { helper.send :available_mime_types }
 
       it 'should return all available mime types' do
-        expect(subject).to eq Mime::EXTENSION_LOOKUP.map{ |a| a[1].to_s }.uniq
+        expect(subject).to eq Mime::EXTENSION_LOOKUP.map{ |a| a[1].to_s }.uniq.sort
       end
 
       it 'should show the mime type' do

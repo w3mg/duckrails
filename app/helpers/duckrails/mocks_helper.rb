@@ -1,7 +1,7 @@
 module Duckrails
   module MocksHelper
     def available_mime_types
-      Mime::EXTENSION_LOOKUP.map{ |a| a[1].to_s }.uniq
+      Mime::EXTENSION_LOOKUP.map{ |a| a[1].to_s }.uniq.sort
     end
 
     def available_script_types

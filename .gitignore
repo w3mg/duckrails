@@ -19,3 +19,6 @@
 */**/.keep
 
 /public/assets
+
+.ruby-version
+.ruby-gemset

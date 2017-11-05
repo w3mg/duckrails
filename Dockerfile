@@ -1,5 +1,5 @@
 FROM debian
-LABEL mainainer="Lazarus Lazaridis http://iridakos.com"
+LABEL maintainer="Lazarus Lazaridis http://iridakos.com"
 
 # Install required debian packages
 RUN apt-get update && apt-get install -y build-essential curl procps git-core libxml2-dev nodejs

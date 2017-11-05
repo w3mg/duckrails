@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Dynamic routes' do
-  let(:mock) { FactoryGirl.create :mock, request_method: request_method, route_path: route_path }
+  let(:mock) { FactoryBot.create :mock, request_method: request_method, route_path: route_path }
   let(:request_method) { }
   let(:route_path) { '/mocker/:mocker_id/mocks' }
 

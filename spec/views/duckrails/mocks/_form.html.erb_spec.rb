@@ -7,21 +7,22 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
 
   before do
     assign :mock, mock
-    render partial: 'form'
+
+    render
   end
 
-  subject { rendered }
+  subject { page }
 
   it { should have_css "form[method='post'][action='#{view.duckrails_mocks_path}']" }
 
   context 'for new record' do
-    it { should_not have_css 'input[type="hidden"][name="_method"][value="patch"]' }
+    it { should_not have_css 'input[type="hidden"][name="_method"][value="patch"]', visible: false }
   end
 
   context 'for existing record' do
-    let(:mock) { FactoryGirl.create :mock }
+    let(:mock) { FactoryBot.create :mock }
 
-    it { should have_css 'input[type="hidden"][name="_method"][value="patch"]' }
+    it { should have_css 'input[type="hidden"][name="_method"][value="patch"]', visible: false }
   end
 
   context 'tabs' do
@@ -78,7 +79,7 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
       it { should have_css "a[title='#{t(:add_header_link_title)}'] span", text: t(:add_header) }
 
       context 'with headers' do
-        let(:mock) { FactoryGirl.build(:mock, headers: 3.times.map{ FactoryGirl.build :header })}
+        let(:mock) { FactoryBot.build(:mock, headers: 3.times.map{ FactoryBot.build :header })}
 
         it { should render_template partial: '_header_fields', count: 4 }
       end
@@ -103,13 +104,13 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
 
   context 'actions' do
     context 'with existing record' do
-      let(:mock) { FactoryGirl.create :mock }
+      let(:mock) { FactoryBot.create :mock }
 
       it { should have_css "a[href='#{duckrails_mock_path(mock)}'][data-method='delete'][data-confirm='#{t(:mock_deletion_confirmation)}']", text: t(:delete) }
     end
 
     context 'with new record' do
-      let(:mock) { FactoryGirl.build :mock }
+      let(:mock) { FactoryBot.build :mock }
 
       it { should_not have_css 'a', text: t(:delete) }
     end

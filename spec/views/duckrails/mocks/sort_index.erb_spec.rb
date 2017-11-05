@@ -5,7 +5,7 @@ RSpec.describe 'duckrails/mocks/sort_index.html.erb', type: :view do
 
   before do
     3.times do
-      FactoryGirl.create(:mock)
+      FactoryBot.create(:mock)
     end
 
     assign :mocks, Duckrails::Mock.all

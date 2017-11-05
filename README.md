@@ -112,6 +112,18 @@ give you access to the parameters with:
 
 The application is by default configured to use sqlite3. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
 
+## Docker
+
+A docker image is available at docker hub under [iridakos/duckrails](https://hub.docker.com/r/iridakos/duckrails/).
+
+To obtain the image use:
+
+`docker pull iridakos/duckrails`
+
+To start the application and bind it to a port (ex. 4000) use:
+
+`docker run -p 4000:80 iridakos/duckrails:latest`
+
 ## Contributing
 
 1. Fork it ( https://github.com/iridakos/duckrails/fork )

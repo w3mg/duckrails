@@ -67,50 +67,51 @@ Currently supported dynamic types are:
 
 When specifying dynamic content of embedded ruby (more options to be added), you can read as local variables:
 
-- <code>@parameters</code>: The parameters of the request
-- <code>@request</code>: The request
-- <code>@response</code>: The response
+- `@parameters`: The parameters of the request
+- `@request`: The request
+- `@response`: The response
 
 ### Javascript
 
 When specifying dynamic content of javascript type, you can read as local variables:
 
-- <code>parameters</code>: The parameters of the request
-- <code>headers</code>: The request headers
+- `parameters`: The parameters of the request
+- `headers`: The request headers
 
-The script should always return a string (for JSON use <code>JSON.stringify(your_variable)</code>)
+The script should always return a string (for JSON use `JSON.stringify(your_variable)`)
 
 ### Route paths
 
 You can specify routes and access their parts in the *@parameters* variable, for example:
 
-<pre><code>/authors/:author_id/posts/:post_id</code></pre>
+`/authors/:author_id/posts/:post_id`
 
 give you access to the parameters with:
 
-<pre><code>@parameters[:author_id]
-@parameters[:post_id]</code></pre>
+`@parameters[:author_id]`
+
+`@parameters[:post_id]`
 
 ## Quick setup (development environment)
 
 * Clone the repository.
 * Copy the sample database configuration file (`config/database.yml.sample`) under `config/database.yml` and edit it to reflect your preferred db configuration (defaults to sqlite3). If you change the database adapter, make sure you include the appropriate gem in your `Gemfile` (ex. for mysql `gem 'mysql2'`)
-* Execute <code>bundle install</code> to install the required gems.
-* Execute <code>rake db:setup</code> to setup the database.
-* Execute <code>rails server</code> to start the application on the default port.
+* Execute `bundle install` to install the required gems.
+* Execute `rake db:setup` to setup the database.
+* Execute `rails server` to start the application on the default port.
 
 ## Better setup (production environment)
 * Clone the repository.
 * Copy the sample database configuration file (`config/database.yml.sample`) under `config/database.yml` and edit it to reflect your preferred db configuration (defaults to sqlite3). If you change the database adapter, make sure you include the appropriate gem in your `Gemfile` (ex. for mysql `gem 'mysql2'`)
-* Execute <code>bundle install</code> to install the required gems.
-* Export an env variable for your [secret key base](http://stackoverflow.com/questions/23726110/missing-production-secret-key-base-in-rails): <code>export SECRET_KEY_BASE="your_secret_key_base_here"</code>
-* Execute <code>RAILS_ENV=production rake db:setup</code> to setup the database.
-* Execute <code>RAILS_ENV=production rake assets:precompile</code> to generate the assets.
-* Execute <code>bundle exec rails s -e production</code> to start the application on the default port.
+* Execute `bundle install` to install the required gems.
+* Export an env variable for your [secret key base](http://stackoverflow.com/questions/23726110/missing-production-secret-key-base-in-rails): `export SECRET_KEY_BASE="your_secret_key_base_here"`
+* Execute `RAILS_ENV=production rake db:setup` to setup the database.
+* Execute `RAILS_ENV=production rake assets:precompile` to generate the assets.
+* Execute `bundle exec rails s -e production` to start the application on the default port.
 
 ## Database configuration
 
-The application is by default configured to use sqlite3. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
+The application is by default configured to use sqlite3. If you want to use another configuration, update the `config/database.yml` accordingly to match your setup.
 
 ## Docker
 

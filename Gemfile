@@ -11,6 +11,7 @@ gem 'cocoon'
 gem 'kaminari'
 gem 'rest-client'
 gem 'libxml-ruby'
+gem 'sqlite3'
 
 group :development, :test do
   gem 'byebug'
@@ -23,7 +24,6 @@ group :development do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
   gem 'database_cleaner'

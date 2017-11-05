@@ -48,8 +48,7 @@ Then /^The (.*) field of the mock form should have an error message "(.*)"$/ do 
 end
 
 When /^I click the (General|Response body|Headers|Advanced) tab of the mock form$/ do |tab|
-  page.execute_script("$('##{tab.parameterize.underscore}_tab_link').trigger('click');console.log(window.messages)");
-  puts page.driver.browser.console_messages
+  click_on tab
 end
 
 When /^I fill in the (.*) field of the mock form with value "([^"]*)"$/ do |field, value|

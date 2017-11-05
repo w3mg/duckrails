@@ -5,15 +5,14 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
+  adapter: sqlite3
   encoding: utf8
   pool: 5
   timeout: 5000
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
-  database: duckrails_development
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,7 +26,7 @@ test: &test
 
 production:
   <<: *default
-  database: duckrails_production
+  database: db/production.sqlite3
 
 cucumber:
   <<: *test

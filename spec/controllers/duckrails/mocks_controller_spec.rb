@@ -15,7 +15,7 @@ module Duckrails
         it { should_not execute_before_action :load_mock, :on => :update_order }
 
         describe '#serve_mock' do
-          let(:mock) { FactoryGirl.build :mock }
+          let(:mock) { FactoryBot.build :mock }
 
           before do
             mock.save!
@@ -30,7 +30,7 @@ module Duckrails
       end
 
       context '#reload_routes' do
-        let(:mock) { FactoryGirl.create(:mock) }
+        let(:mock) { FactoryBot.create(:mock) }
 
         it { should execute_after_action :reload_routes, :on => :update, with: { id: mock.id } }
         it { should execute_after_action :reload_routes, :on => :create }
@@ -95,7 +95,7 @@ module Duckrails
     end
 
     describe 'GET #edit' do
-      let(:mock) { FactoryGirl.create :mock }
+      let(:mock) { FactoryBot.create :mock }
 
       before do
         get :edit, id: mock.id
@@ -116,7 +116,7 @@ module Duckrails
     end
 
     describe 'GET #new' do
-      let(:mock) { FactoryGirl.build :mock }
+      let(:mock) { FactoryBot.build :mock }
 
       before do
         expect(Mock).to receive(:new).once.and_return(mock)
@@ -139,14 +139,14 @@ module Duckrails
     end
 
     describe 'POST #create' do
-      let(:mock) { FactoryGirl.build :mock }
+      let(:mock) { FactoryBot.build :mock }
       let(:valid) { nil }
 
       before do
         expect(controller).to receive(:mock_params).and_call_original
         expect_any_instance_of(Mock).to receive(:save).once.and_return(valid)
 
-        post :create, id: mock.id, duckrails_mock: FactoryGirl.attributes_for(:mock, name: 'Default mock')
+        post :create, id: mock.id, duckrails_mock: FactoryBot.attributes_for(:mock, name: 'Default mock')
       end
 
       context 'with valid mock' do
@@ -189,7 +189,7 @@ module Duckrails
     end
 
     describe 'PUT/PATCH #update' do
-      let(:mock) { FactoryGirl.create :mock }
+      let(:mock) { FactoryBot.create :mock }
       let(:valid) { nil }
 
       before do
@@ -240,9 +240,9 @@ module Duckrails
 
     describe 'PUT #update_order' do
       before do
-        FactoryGirl.sequences.clear
+        FactoryBot.sequences.clear
         3.times do |i|
-          FactoryGirl.create(:mock, mock_order: nil)
+          FactoryBot.create(:mock, mock_order: nil)
         end
       end
 
@@ -261,7 +261,7 @@ module Duckrails
     end
 
     describe 'DELETE #destroy' do
-      let(:mock) { FactoryGirl.create :mock }
+      let(:mock) { FactoryBot.create :mock }
 
       before do
         expect(Duckrails::Router).to receive(:unregister_mock).with(mock).once.and_call_original
@@ -277,7 +277,7 @@ module Duckrails
     end
 
     describe 'put #activate' do
-      let(:mock) { FactoryGirl.create :mock, active: false }
+      let(:mock) { FactoryBot.create :mock, active: false }
 
       before do
         expect(mock).to receive(:activate!).and_call_original
@@ -294,7 +294,7 @@ module Duckrails
     end
 
     describe 'put #deactivate' do
-      let(:mock) { FactoryGirl.create :mock, active: true }
+      let(:mock) { FactoryBot.create :mock, active: true }
 
       before do
         expect(mock).to receive(:deactivate!).and_call_original
@@ -319,7 +319,7 @@ module Duckrails
       let(:headers) { nil }
       let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
       let(:body_content) { 'Hello world' }
-      let(:mock) { FactoryGirl.build(:mock,
+      let(:mock) { FactoryBot.build(:mock,
                                       headers: headers || [],
                                       body_type: body_type,
                                       body_content: body_content,
@@ -350,8 +350,8 @@ module Duckrails
 
         context 'with headers' do
           let(:headers) {
-            [ FactoryGirl.build(:header, name: 'Header 1', value: 'Value 1'),
-              FactoryGirl.build(:header, name: 'Header 2', value: 'Value 2')] }
+            [ FactoryBot.build(:header, name: 'Header 1', value: 'Value 1'),
+              FactoryBot.build(:header, name: 'Header 2', value: 'Value 2')] }
 
           it 'should respond with mock\'s body, content, status & headers' do
             expect(controller).to receive(:add_response_header).twice.and_call_original
@@ -391,8 +391,8 @@ module Duckrails
 
         context 'with headers' do
           let(:headers) {
-            [ FactoryGirl.build(:header, name: 'Header 1', value: 'Value 1'),
-              FactoryGirl.build(:header, name: 'Header 2', value: 'Value 2')] }
+            [ FactoryBot.build(:header, name: 'Header 1', value: 'Value 1'),
+              FactoryBot.build(:header, name: 'Header 2', value: 'Value 2')] }
 
           it 'should respond with mock\'s body, content, status & headers' do
             expect(controller).to receive(:add_response_header).exactly(4).times.and_call_original
@@ -416,7 +416,7 @@ module Duckrails
 
     describe '#add_response_header' do
       let(:response) { ActionController::TestResponse.new }
-      let(:header) { FactoryGirl.build :header }
+      let(:header) { FactoryBot.build :header }
 
       it 'should' do
         expect(controller).to receive(:response).and_return(response)
@@ -766,7 +766,7 @@ module Duckrails
     end
 
     describe '#load_mock' do
-      let(:mock) { FactoryGirl.build(:mock) }
+      let(:mock) { FactoryBot.build(:mock) }
 
       it 'should load the mock with the specific params id' do
         expect(controller).to receive(:params).and_return(ActionController::Parameters.new(id: 1))

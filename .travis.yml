@@ -1,9 +1,13 @@
 language: ruby
 rvm:
-  - 2.1.5
-  - 2.1.8
   - 2.2.4
   - 2.3.0
+  - 2.4.2
+before_install:
+  - which qmake # to see where it links
+  - ls -la `which qmake`
+  - sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+  - ls -la `which qmake`
 before_script:
   - cp config/database.yml.sample config/database.yml
   - bin/rake db:migrate RAILS_ENV=test

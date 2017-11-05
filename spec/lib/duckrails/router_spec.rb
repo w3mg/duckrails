@@ -16,7 +16,7 @@ module Duckrails
       context 'with mocks' do
         before do
           3.times do |i|
-            FactoryGirl.create(:mock, id: i,
+            FactoryBot.create(:mock, id: i,
                                       name: "Mock:#{i}",
                                       route_path: "/router/#{i}")
           end
@@ -29,7 +29,7 @@ module Duckrails
     end
 
     describe '.register_mock' do
-      let(:mock) { FactoryGirl.build(:mock, id: '1') }
+      let(:mock) { FactoryBot.build(:mock, id: '1') }
 
       it 'should add the mock in the registered mocks' do
         expect{Router.register_mock(mock)}.to change{ Router::REGISTERED_MOCKS.size }.from(0).to(1)
@@ -53,7 +53,7 @@ module Duckrails
     end
 
     describe '.unregister_mock' do
-      let(:mock) { FactoryGirl.build :mock, id: 1 }
+      let(:mock) { FactoryBot.build :mock, id: 1 }
       before do
         expect(Duckrails::Mock).to receive(:pluck).with(:id).and_return([1, 2, 3])
         Router.register_current_mocks
@@ -69,7 +69,7 @@ module Duckrails
     describe '.load_mock_routes!' do
       before do
         3.times do |i|
-          FactoryGirl.create :mock, id: i
+          FactoryBot.create :mock, id: i
         end
 
         Router.register_current_mocks
@@ -86,7 +86,7 @@ module Duckrails
 
     describe '#protected .define_route(mock_id)' do
       let(:active) { nil }
-      let(:mock) { FactoryGirl.build(:mock, id: 1, active: active) }
+      let(:mock) { FactoryBot.build(:mock, id: 1, active: active) }
 
       context 'for active mock' do
         let(:active) { true }

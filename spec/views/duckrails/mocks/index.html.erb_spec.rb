@@ -8,11 +8,11 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
   before do
     if with_mocks
       3.times do |i|
-        FactoryGirl.create(:mock, name: "Mock-#{i + 1}", route_path: "/duck/#{i + 1}")
+        FactoryBot.create(:mock, name: "Mock-#{i + 1}", route_path: "/duck/#{i + 1}")
       end
 
       2.times do |i|
-        FactoryGirl.create(:mock, name: "Mock-#{i + 4}", route_path: "/duck/#{i + 4}", active: false)
+        FactoryBot.create(:mock, name: "Mock-#{i + 4}", route_path: "/duck/#{i + 4}", active: false)
       end
     end
 

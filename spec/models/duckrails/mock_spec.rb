@@ -21,7 +21,7 @@ module Duckrails
       it { should accept_nested_attributes_for(:headers).allow_destroy(true) }
 
       it 'should reject headers if all values are nil' do
-        mock = FactoryGirl.build(:mock)
+        mock = FactoryBot.build(:mock)
         mock.headers_attributes = [{}]
         expect(mock.save).to be true
       end
@@ -38,48 +38,48 @@ module Duckrails
 
         context '#body_type' do
           it 'should not validate presence if body content is empty' do
-            mock = FactoryGirl.build :mock, body_content: nil
+            mock = FactoryBot.build :mock, body_content: nil
             expect(mock).not_to validate_presence_of :body_type
           end
 
           it 'should validate presence if body content is present' do
-            mock = FactoryGirl.build :mock, body_content: 'DuckRails'
+            mock = FactoryBot.build :mock, body_content: 'DuckRails'
             expect(mock).to validate_presence_of :body_type
           end
         end
 
         context '#body_content' do
           it 'should not validate presence if body type is empty' do
-            mock = FactoryGirl.build :mock, body_type: nil
+            mock = FactoryBot.build :mock, body_type: nil
             expect(mock).not_to validate_presence_of :body_content
           end
 
           it 'should validate presence if body type is present' do
-            mock = FactoryGirl.build :mock, body_type: 'embedded_ruby'
+            mock = FactoryBot.build :mock, body_type: 'embedded_ruby'
             expect(mock).to validate_presence_of :body_content
           end
         end
 
         context '#script_type' do
           it 'should not validate presence if script content is empty' do
-            mock = FactoryGirl.build :mock, script: nil
+            mock = FactoryBot.build :mock, script: nil
             expect(mock).not_to validate_presence_of :script_type
           end
 
           it 'should validate presence if script content is present' do
-            mock = FactoryGirl.build :mock, script: 'DuckRails'
+            mock = FactoryBot.build :mock, script: 'DuckRails'
             expect(mock).to validate_presence_of :script_type
           end
         end
 
         context '#script' do
           it 'should not validate presence if script type is empty' do
-            mock = FactoryGirl.build :mock, script_type: nil
+            mock = FactoryBot.build :mock, script_type: nil
             expect(mock).not_to validate_presence_of :script
           end
 
           it 'should validate presence if script type is present' do
-            mock = FactoryGirl.build :mock, script_type: 'embedded_ruby'
+            mock = FactoryBot.build :mock, script_type: 'embedded_ruby'
             expect(mock).to validate_presence_of :script
           end
         end
@@ -87,30 +87,23 @@ module Duckrails
 
       context 'uniqueness' do
         context '#name' do
-          subject { FactoryGirl.build :mock, name: 'Default mock' }
+          subject { FactoryBot.create :mock, name: 'Default mock' }
 
-          it { should validate_uniqueness_of(:name) }
-
-          it 'should validate uniqueness without case sensitivity' do
-            FactoryGirl.create(:mock, name: 'Default mock')
-            mock = FactoryGirl.build(:mock, name: 'Default MOCK')
-            expect(mock).to be_invalid
-            expect(mock.errors[:name]).to include('has already been taken')
-          end
+          it { should validate_uniqueness_of(:name).case_insensitive }
         end
 
         context '#route_path' do
           it 'should allow duplicates with same methods' do
-            FactoryGirl.create(:mock, route_path: '/a_mock')
+            FactoryBot.create(:mock, route_path: '/a_mock')
 
-            mock = FactoryGirl.build(:mock, route_path: '/a_mock')
+            mock = FactoryBot.build(:mock, route_path: '/a_mock')
             expect(mock).to be_valid
           end
 
           it 'should allow duplicates with different methods' do
-            FactoryGirl.create(:mock, route_path: '/a_mock')
+            FactoryBot.create(:mock, route_path: '/a_mock')
 
-            mock = FactoryGirl.build(:mock, request_method: 'post', route_path: '/a_mock')
+            mock = FactoryBot.build(:mock, request_method: 'post', route_path: '/a_mock')
             expect(mock).to be_valid
             expect(mock.errors[:route_path].size).to eq 0
           end
@@ -133,7 +126,7 @@ module Duckrails
       context 'route' do
         context 'with Bad URI' do
           it 'should be invalid' do
-            mock = FactoryGirl.build :mock, route_path: 'httpgih[]com'
+            mock = FactoryBot.build :mock, route_path: 'httpgih[]com'
 
             expect(mock).to be_invalid
             expect(mock.errors[:route_path]).to include 'is not a valid route'
@@ -142,7 +135,7 @@ module Duckrails
 
         context 'with action not served by the mocks controller' do
           it 'should be invalid' do
-            mock = FactoryGirl.build :mock, route_path: '/'
+            mock = FactoryBot.build :mock, route_path: '/'
 
             expect(mock).to be_invalid
             expect(mock.errors[:route_path]).to include 'already in use'
@@ -151,7 +144,7 @@ module Duckrails
 
         context 'with action served by the mocks controller but not by the #serve_mock method' do
           it 'should be invalid' do
-            mock = FactoryGirl.build :mock, route_path: '/duckrails/mocks'
+            mock = FactoryBot.build :mock, route_path: '/duckrails/mocks'
 
             expect(mock).to be_invalid
             expect(mock.errors[:route_path]).to include 'already in use'
@@ -160,8 +153,8 @@ module Duckrails
 
         context 'with action served by the mocks controller, by the #serve_mock method but for another mock' do
           it 'should be valid' do
-            FactoryGirl.create :mock, route_path: '/a_mock'
-            mock = FactoryGirl.build :mock, route_path: '/a_mock'
+            FactoryBot.create :mock, route_path: '/a_mock'
+            mock = FactoryBot.build :mock, route_path: '/a_mock'
 
             expect(mock).to be_valid
           end
@@ -169,7 +162,7 @@ module Duckrails
 
         context 'updating an existing mock without changing the route passes' do
           it 'should be valid' do
-            mock = FactoryGirl.create :mock
+            mock = FactoryBot.create :mock
             mock.name = 'Changed Default Name'
             expect(mock).to be_valid
           end
@@ -181,7 +174,7 @@ module Duckrails
       context 'default scope' do
         before do
           3.times do |i|
-            FactoryGirl.create :mock, id: i, mock_order: (4 - i)
+            FactoryBot.create :mock, id: i, mock_order: (4 - i)
           end
         end
 
@@ -196,7 +189,7 @@ module Duckrails
       describe '#dynamic?' do
         let(:body_type) { nil }
 
-        subject { FactoryGirl.build(:mock, body_type: body_type).dynamic? }
+        subject { FactoryBot.build(:mock, body_type: body_type).dynamic? }
 
         context 'with static body type' do
           let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
@@ -218,7 +211,7 @@ module Duckrails
       end
 
       describe '#activate!' do
-        let(:mock) { FactoryGirl.create(:mock, active: false) }
+        let(:mock) { FactoryBot.create(:mock, active: false) }
 
         it 'should activate a mock' do
           expect(mock.active?).to be false
@@ -230,7 +223,7 @@ module Duckrails
       end
 
       describe '#deactivate!' do
-        let(:mock) { FactoryGirl.create(:mock, active: true) }
+        let(:mock) { FactoryBot.create(:mock, active: true) }
 
         it 'should activate a mock' do
           expect(mock.active?).to be true
@@ -244,7 +237,7 @@ module Duckrails
 
     context 'callbacks' do
       describe '#before_save' do
-        let(:mock) { FactoryGirl.build(:mock, mock_order: nil) }
+        let(:mock) { FactoryBot.build(:mock, mock_order: nil) }
 
         it 'should set order to 0 if no other mocks exist' do
           mock.save
@@ -252,14 +245,14 @@ module Duckrails
         end
 
         it 'should set order to max if other mocks exist' do
-          FactoryGirl.create :mock, mock_order: 100
+          FactoryBot.create :mock, mock_order: 100
           mock.save
           expect(mock.mock_order).to eq 101
         end
       end
 
       describe '#after_save' do
-        let(:mock) { FactoryGirl.build(:mock) }
+        let(:mock) { FactoryBot.build(:mock) }
 
         before do
           expect(Duckrails::Router).to receive(:register_mock).with(mock).once
@@ -271,7 +264,7 @@ module Duckrails
       end
 
       describe '#after_destroy' do
-        let(:mock) { FactoryGirl.create(:mock) }
+        let(:mock) { FactoryBot.create(:mock) }
 
         before do
           expect(Duckrails::Router).to receive(:unregister_mock).with(mock).once
@@ -285,13 +278,13 @@ module Duckrails
 
     context 'CRUD' do
       it 'should save mocks' do
-        mock = FactoryGirl.build :mock
+        mock = FactoryBot.build :mock
 
         expect{ mock.save }.to change(Mock, :count).from(0).to(1)
       end
 
       it 'should update mocks' do
-        mock = FactoryGirl.create :mock
+        mock = FactoryBot.create :mock
 
         mock.name = 'Another Default mock'
         expect(mock.save).to be true
@@ -301,13 +294,13 @@ module Duckrails
       end
 
       it 'should destroy mocks' do
-        mock = FactoryGirl.create :mock
+        mock = FactoryBot.create :mock
 
         expect{ mock.destroy }.to change(Mock, :count).from(1).to(0)
       end
 
       it 'should save headers' do
-        mock = FactoryGirl.build :mock, headers: [ FactoryGirl.build(:header) ]
+        mock = FactoryBot.build :mock, headers: [ FactoryBot.build(:header) ]
 
         expect{ mock.save }.to change(Header, :count).from(0).to(1)
 

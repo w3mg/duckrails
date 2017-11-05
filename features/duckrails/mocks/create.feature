@@ -3,7 +3,7 @@ Feature: There is a page with options to create a mock
 Background:
   * I visit the new mock page
 
-@selenium
+@javascript
 Scenario: I see all errors when submitting an empty form
   Then The mock form should not have errors
   When I submit the mock form

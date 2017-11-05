@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'duckrails/mocks/new.html.erb', type: :view do
-  let(:mock) { FactoryGirl.build :mock, name: 'New Mock' }
+  let(:mock) { FactoryBot.build :mock, name: 'New Mock' }
   let(:page) { Capybara::Node::Simple.new(rendered) }
 
   before do

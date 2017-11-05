@@ -18,16 +18,16 @@ module Duckrails
     end
 
     context 'CRUD' do
-      let(:mock) { FactoryGirl.create :mock }
+      let(:mock) { FactoryBot.create :mock }
 
       it 'should save headers' do
-        header = FactoryGirl.build :header, mock: mock
+        header = FactoryBot.build :header, mock: mock
 
         expect{ header.save }.to change(Header, :count).from(0).to(1)
       end
 
       it 'should update headers' do
-        header = FactoryGirl.create :header, mock: mock
+        header = FactoryBot.create :header, mock: mock
 
         header.name = 'New Header Name'
         expect(header.save).to be true
@@ -37,7 +37,7 @@ module Duckrails
       end
 
       it 'should destroy headers' do
-        header = FactoryGirl.create :header, mock: mock
+        header = FactoryBot.create :header, mock: mock
 
         expect{ header.destroy }.to change(Header, :count).from(1).to(0)
       end

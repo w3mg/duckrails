@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :mock, class: Duckrails::Mock do
     status '200'
     request_method  'get'

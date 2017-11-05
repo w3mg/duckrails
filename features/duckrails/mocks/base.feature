@@ -30,42 +30,31 @@ Scenario: I can select to edit a mock
   When I click on the link with text 'Cancel'
   Then I should be on the mocks page
 
-@selenium @javascript
+@javascript
 Scenario: I can select to delete a mock
-  When I click the delete link for mock with id 1
-  Then I should see a javascript confirmation with text 'Are you sure you want to delete this mock?'
-  When I dismiss the javascript confirmation
+  When I click the delete link for mock with id 1 and I dismiss the dialog with text 'Are you sure you want to delete this mock?'
   Then I should be on the mocks page
   And There should be an entry for mock with id 1
-  When I click the delete link for mock with id 1
-  And I accept the javascript confirmation
+  When I click the delete link for mock with id 1 and I confirm the dialog with text 'Are you sure you want to delete this mock?'
   Then I should be on the mocks page
   And There should not be an entry for mock with id 1
 
-@selenium @javascript
+@javascript
 Scenario: I can activate a mock
-  When I click the activate link for mock with id 4
-  Then I should see a javascript confirmation with text 'Are you sure you want to activate this mock?'
-  When I dismiss the javascript confirmation
+  When I click the activate link for mock with id 4 and I dismiss the dialog with text 'Are you sure you want to activate this mock?'
   Then I should be on the mocks page
   And There should be an entry for mock with id 4
-  When I click the activate link for mock with id 4
-  And I accept the javascript confirmation
+  When I click the activate link for mock with id 4 and I confirm the dialog with text 'Are you sure you want to activate this mock?'
   Then I should be on the mocks page
-  When I click the deactivate link for mock with id 4
-  Then I should see a javascript confirmation with text 'Are you sure you want to deactivate this mock?'
-  And I dismiss the javascript confirmation
+  When I click the deactivate link for mock with id 4 and I dismiss the dialog with text 'Are you sure you want to deactivate this mock?'
+  Then I should be on the mocks page
 
-@selenium @javascript
+@javascript
 Scenario: I can deactivate a mock
-  When I click the deactivate link for mock with id 1
-  Then I should see a javascript confirmation with text 'Are you sure you want to deactivate this mock?'
-  When I dismiss the javascript confirmation
+  When I click the deactivate link for mock with id 1 and I dismiss the dialog with text 'Are you sure you want to deactivate this mock?'
   Then I should be on the mocks page
   And There should be an entry for mock with id 1
-  When I click the deactivate link for mock with id 1
-  And I accept the javascript confirmation
+  When I click the deactivate link for mock with id 1 and I confirm the dialog with text 'Are you sure you want to deactivate this mock?'
   Then I should be on the mocks page
-  When I click the activate link for mock with id 4
-  Then I should see a javascript confirmation with text 'Are you sure you want to activate this mock?'
-  And I dismiss the javascript confirmation
+  When I click the activate link for mock with id 1 and I dismiss the dialog with text 'Are you sure you want to activate this mock?'
+  Then I should be on the mocks page

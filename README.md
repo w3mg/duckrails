@@ -94,12 +94,14 @@ give you access to the parameters with:
 ## Quick setup (development environment)
 
 * Clone the repository.
+* Copy the sample database configuration file (`config/database.yml.sample`) under `config/database.yml` and edit it to reflect your preferred db configuration (defaults to sqlite3). If you change the database adapter, make sure you include the appropriate gem in your `Gemfile` (ex. for mysql `gem 'mysql2'`)
 * Execute <code>bundle install</code> to install the required gems.
 * Execute <code>rake db:setup</code> to setup the database.
 * Execute <code>rails server</code> to start the application on the default port.
 
 ## Better setup (production environment)
 * Clone the repository.
+* Copy the sample database configuration file (`config/database.yml.sample`) under `config/database.yml` and edit it to reflect your preferred db configuration (defaults to sqlite3). If you change the database adapter, make sure you include the appropriate gem in your `Gemfile` (ex. for mysql `gem 'mysql2'`)
 * Execute <code>bundle install</code> to install the required gems.
 * Export an env variable for your [secret key base](http://stackoverflow.com/questions/23726110/missing-production-secret-key-base-in-rails): <code>export SECRET_KEY_BASE="your_secret_key_base_here"</code>
 * Execute <code>RAILS_ENV=production rake db:setup</code> to setup the database.
@@ -108,7 +110,7 @@ give you access to the parameters with:
 
 ## Database configuration
 
-The application is by default configured to use MySQL. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
+The application is by default configured to use sqlite3. If you want to use another configuration, update the <code>config/database.yml</code> accordingly to match your setup.
 
 ## Contributing
 

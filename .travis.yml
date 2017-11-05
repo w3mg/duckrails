@@ -10,5 +10,5 @@ before_script:
   - sleep 3 # give xvfb some time to start
 install:
   - which qmake # to see where it links
-  - rm `which qmake` # IF it is linking to an old version 
+  - sudo rm `which qmake` # IF it is linking to an old version 
   - sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x

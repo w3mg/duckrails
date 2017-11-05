@@ -4,7 +4,7 @@ rvm:
   - 2.1.8
   - 2.2.4
   - 2.3.0
-install:
+before_install:
   - which qmake # to see where it links
   - sudo rm `which qmake` # IF it is linking to an old version
   - sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x

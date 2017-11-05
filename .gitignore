@@ -22,7 +22,3 @@
 */**/.keep
 
 /public/assets
-
-# Ignore ruby configuration
-.ruby-gemset
-.ruby-version

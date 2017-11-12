@@ -20,6 +20,12 @@ module Duckrails
         REGISTERED_MOCKS.delete mock.id
       end
 
+      def reset!
+        REGISTERED_MOCKS.clear
+        register_current_mocks
+        reload_routes!
+      end
+
       def load_mock_routes!
         mocks =  REGISTERED_MOCKS.map do |mock_id|
           Duckrails::Mock.find mock_id
@@ -30,6 +36,10 @@ module Duckrails
         mocks.each do |mock|
           define_route mock
         end
+      end
+
+      def reload_routes!
+        Duckrails::Application.routes_reloader.reload!
       end
 
       protected

@@ -134,7 +134,7 @@ module Duckrails
     end
 
     def reload_routes
-      Duckrails::Application.routes_reloader.reload! unless @skip_reloading
+      Duckrails::Router.reload_routes! unless @skip_reloading
     end
 
     def mock_params

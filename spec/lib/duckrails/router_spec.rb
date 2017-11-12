@@ -66,6 +66,21 @@ module Duckrails
       end
     end
 
+    describe '.reset!' do
+      it 'should reset the routes' do
+        expect(Router::REGISTERED_MOCKS).to be_empty
+        expect(Mock.count).to eq 0
+        Router::REGISTERED_MOCKS << 10001 << 10002 << 10003
+        mock = FactoryBot.create :mock
+
+        expect(Router).to receive(:register_current_mocks).once.and_call_original
+        expect(Router).to receive(:reload_routes!).once.and_call_original
+        Router.reset!
+
+        expect(Router::REGISTERED_MOCKS).to eq [mock.id]
+      end
+    end
+
     describe '.load_mock_routes!' do
       before do
         3.times do |i|

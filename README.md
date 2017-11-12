@@ -99,6 +99,7 @@ give you access to the parameters with:
 * Execute `bundle install` to install the required gems.
 * Execute `rake db:setup` to setup the database.
 * Execute `rails server` to start the application on the default port.
+* Duckrails can be run concurrently and in parallelism, thus instead of the default rails server, you may start the [puma](https://github.com/puma/puma) server with something like: `bundle exec puma -t 8:16 -w 3`
 
 ## Better setup (production environment)
 * Clone the repository.
@@ -108,6 +109,7 @@ give you access to the parameters with:
 * Execute `RAILS_ENV=production rake db:setup` to setup the database.
 * Execute `RAILS_ENV=production rake assets:precompile` to generate the assets.
 * Execute `bundle exec rails s -e production` to start the application on the default port.
+* Duckrails can be run concurrently and in parallelism, thus instead of the default rails server, you may start the [puma](https://github.com/puma/puma) server with something like: `RAILS_ENV=production bundle exec puma -t 8:16 -w 3`
 
 ## Database configuration
 

@@ -1,6 +1,7 @@
 require 'duckrails/synchronizer'
-# The application state
+
 module Duckrails
+  # The application state
   class ApplicationState < ActiveRecord::Base
     self.table_name = 'application_state'
 
@@ -9,6 +10,7 @@ module Duckrails
     validates_inclusion_of :singleton_guard, in: [0]
 
     class << self
+      # @return [ApplicationState] the one and only application state
       def instance
         ApplicationState.first || ApplicationState.create(singleton_guard: 0,
                                                           mock_synchronization_token: Synchronizer.generate_token)

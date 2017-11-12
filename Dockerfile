@@ -31,4 +31,4 @@ RUN /bin/bash -l -c 'foo=$(/bin/bash -l -c "bundle exec rake secret") && echo "e
 RUN /bin/bash -l -c "RAILS_ENV=production bundle exec rake db:create db:migrate assets:precompile"
 
 # Start the server
-CMD ["/bin/bash", "-l", "-c", "bundle exec rails server -p 80 -b 0.0.0.0"]
+CMD ["/bin/bash", "-l", "-c", "bundle exec puma -p 80 -w 3"]

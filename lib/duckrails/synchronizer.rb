@@ -10,10 +10,10 @@ module Duckrails
       application_state = ApplicationState.instance
 
       if Synchronizer.mock_synchronization_token != application_state.mock_synchronization_token
-        Rails.logger.info 'Mock syncronization token missmatch. Syncronizing...'
+        Rails.logger.info 'Mock synchronization token missmatch. Syncronizing...'
         Router.reset!
         Synchronizer.mock_synchronization_token = application_state.mock_synchronization_token
-        Rails.logger.info 'Mock syncronization completed.'
+        Rails.logger.info 'Mock synchronization completed.'
       end
 
       @status, @headers, @response = @app.call(env)

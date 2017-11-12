@@ -2,11 +2,11 @@ module Duckrails
   class Synchronizer
     cattr_accessor :mock_synchronization_token
 
-    def initialize app
+    def initialize(app)
       @app = app
     end
 
-    def call env
+    def call(env)
       application_state = ApplicationState.instance
 
       if Synchronizer.mock_synchronization_token != application_state.mock_synchronization_token

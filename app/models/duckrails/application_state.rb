@@ -7,7 +7,8 @@ module Duckrails
 
     default_scope { order(id: :desc) }
 
-    validates_inclusion_of :singleton_guard, in: [0]
+    validates :singleton_guard, inclusion: { in: [0] }
+    validates :mock_synchronization_token, presence: true
 
     class << self
       # @return [ApplicationState] the one and only application state

@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Duckrails
   class Application < Rails::Application
-    VERSION = '2.0.0'
+    VERSION = '2.1.0'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

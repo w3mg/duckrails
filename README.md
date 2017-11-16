@@ -21,7 +21,7 @@ or even cause delays, timeouts etc.
 
 ### Guides
 
-You can find DuckRails' guides [here](http://iridakos.com/2016/04/01/duckrails-guide.html).
+You can find DuckRails' guides [at my blog](http://iridakos.com/2016/04/01/duckrails-guide.html) or in the project's [wiki pages](https://github.com/iridakos/duckrails/wiki).
 
 ### Example
 

@@ -21,7 +21,23 @@ or even cause delays, timeouts etc.
 
 ### Guides
 
-You can find DuckRails' guides [at my blog](http://iridakos.com/2016/04/01/duckrails-guide.html) or in the project's [wiki pages](https://github.com/iridakos/duckrails/wiki).
+The repository's [wiki pages](https://github.com/iridakos/duckrails/wiki) contain all you need to know.
+* [What is DuckRails?](https://github.com/iridakos/duckrails/wiki/What-is-DuckRails%3F)
+* [Setting up the application](https://github.com/iridakos/duckrails/wiki/Setting-up-the-application)
+  * [natively](https://github.com/iridakos/duckrails/wiki/Setup-DuckRails-natively)
+  * [via docker](https://github.com/iridakos/duckrails/wiki/Setup-DuckRails-via-Docker)
+* [Using DuckRails](https://github.com/iridakos/duckrails/wiki/Using-DuckRails)
+  * [The mock form](https://github.com/iridakos/duckrails/wiki/Using-the-mock-form)
+  * [The mock index page](https://github.com/iridakos/duckrails/wiki/Using-the-mock-index-page)
+* [Creating mocks](https://github.com/iridakos/duckrails/wiki/Creating-mocks)
+  * [Route paths with variables](https://github.com/iridakos/duckrails/wiki/Route-paths-with-variables)
+  * [Static mock](https://github.com/iridakos/duckrails/wiki/Creating-a-simple-static-mock)
+  * [Dynamic mock with embedded ruby](https://github.com/iridakos/duckrails/wiki/Creating-a-dynamic-mock-with-embedded-ruby)
+  * [Dynamic mock with javascript](https://github.com/iridakos/duckrails/wiki/Creating-a-dynamic-mock-with-Javascript)
+  * [Mock wrapping an existing API call](https://github.com/iridakos/duckrails/wiki/Creating-a-dynamic-mock-that-wraps-an-existing-API-call)
+  * [Advanced mock (WIP)](https://github.com/iridakos/duckrails/wiki/Creating-an-advanced-mock)
+  
+You can find the old DuckRails' guides [at my blog](http://iridakos.com/2016/04/01/duckrails-guide.html).
 
 ### Example
 

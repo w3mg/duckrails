@@ -6,7 +6,7 @@ Its main purpose is to allow developers to quickly mock API endpoints that for m
 
 > If it looks like a duck, walks like a duck and quacks like a duck, then it's a duck
 
-![Home Page](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-home-page.png)
+![Home Page](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-home-page.png?raw=true)
 
 ## How it works
 
@@ -43,27 +43,27 @@ You can find the old DuckRails' guides [at my blog](http://iridakos.com/2016/04/
 
 Mocks index page
 
-![Mocks index page](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-index-page.png)
+![Mocks index page](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-index-page.png?raw=true)
 
 Changing mocks order
 
-![Change mocks order](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-change-mock-order.png)
+![Change mocks order](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-change-mock-order.png?raw=true)
 
 Setting general mock properties
 
-![General mock properties](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-general-tab.png)
+![General mock properties](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-general-tab.png?raw=true)
 
 Defining the response body
 
-![Defining the response body](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-response-body-tab.png)
+![Defining the response body](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-response-body-tab.png?raw=true)
 
 Setting response headers
 
-![Setting response headers](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-headers-tab.png)
+![Setting response headers](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-headers-tab.png?raw=true)
 
 Setting some advanced configuration (delays, dynamic headers, content type & status)
 
-![Advanced configuration](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-advanced.png)
+![Advanced configuration](https://github.com/iridakos/duckrails/blob/master/documentation/readme/resources/duckrails-mock-advanced.png?raw=true)
 
 Upon save the route becomes available to the application and you can use the endpoint:
 

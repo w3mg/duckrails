@@ -113,6 +113,7 @@ module Duckrails
           context_variables = {
             response: response,
             request: request,
+            headers: Hash[request.headers.select{ |header| header[1].is_a? String }],
             parameters: params
           }
 
@@ -121,7 +122,8 @@ module Duckrails
           headers = request.headers.select do |header|
             header[1].is_a? String
           end
-          context = ExecJS.compile("parameters = #{params.to_json}; headers = #{headers.to_json}")
+
+          context = ExecJS.compile("parameters = #{params.to_json}; headers = #{Hash[headers].to_json}")
           context.exec script
       end unless script.blank?
 

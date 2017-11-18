@@ -84,12 +84,17 @@ pre {
 }
 
 div.footer {
-  margin-top: 40px;
-  border-top: 2px solid #333;
-  border-bottom: 2px solid #333;
-  background: #444;
-  color: #f0f0f0;
+  margin-top: 80px;
+  border-top: 4px solid #f0f0f0;
+  color: #888;
   padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+
+  p {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
 }
 
 .checkbox-wrapper {

@@ -13,7 +13,7 @@ module Duckrails
         @mocks = Duckrails::Mock.all
         render :sort_index
       else
-        @mocks = Duckrails::Mock.page params[:page]
+        @mocks = Duckrails::Mock.page(params[:page]).per(params[:per])
       end
     end
 

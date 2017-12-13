@@ -45,6 +45,7 @@ module Duckrails
 
     describe "GET #index" do
       let(:page) { nil }
+      let(:per) { nil }
       let(:sort) { nil }
 
       before do
@@ -52,14 +53,39 @@ module Duckrails
           expect(Mock).to receive(:all).at_least(1).times.and_call_original
           expect(Mock).to receive(:page).never
         else
-          expect(Mock).to receive(:page).with(page).and_call_original
+          mock_relation = double('mock_relation').as_null_object
+          expect(Mock).to receive(:page).with(page).and_return(mock_relation)
+          expect(mock_relation).to receive(:per).with(per)
         end
 
-        get :index, page: page, sort: sort
+        get :index, page: page, sort: sort, per: per
       end
 
       context 'without sort parameter' do
         context 'with page parameter' do
+          let(:page) { '10' }
+
+          describe 'response' do
+            subject { response }
+
+            it { should have_http_status :success }
+            it { should render_template :index  }
+          end
+        end
+
+        context 'with per parameter' do
+          let(:per) { '10' }
+
+          describe 'response' do
+            subject { response }
+
+            it { should have_http_status :success }
+            it { should render_template :index  }
+          end
+        end
+
+        context 'with page and per parameter' do
+          let(:per) { '10' }
           let(:page) { '10' }
 
           describe 'response' do

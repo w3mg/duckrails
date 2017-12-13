@@ -410,6 +410,22 @@ module Duckrails
       end
     end
 
+    describe '#default_url_options' do
+      let(:params) { {
+                       page: 10,
+                       per: 5
+                     } }
+
+      before do
+        allow(controller).to receive(:params).and_return(params)
+      end
+
+      subject { controller.default_url_options }
+
+      it { is_expected.to eq({ :page=>10,
+                               :per=>5 }) }
+    end
+
     ###########
     # protected
     ###########

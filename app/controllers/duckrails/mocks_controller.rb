@@ -95,6 +95,13 @@ module Duckrails
       render body: body, content_type: content_type, status: status
     end
 
+    def default_url_options
+      {
+        page: params[:page],
+        per: params[:per]
+      }
+    end
+
     #########
     protected
     #########

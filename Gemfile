@@ -11,7 +11,7 @@ gem 'cocoon'
 gem 'kaminari'
 gem 'rest-client'
 gem 'libxml-ruby'
-gem 'pg'
+gem 'pg', '~> 0.20'
 gem 'puma'
 
 group :development, :test do
@@ -23,7 +23,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-
+=begin
 group :test do
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
@@ -37,3 +37,4 @@ group :test do
   gem 'selenium-webdriver', '2.53.0'
   gem 'table_flipper'
 end
+=end

@@ -11,7 +11,7 @@ gem 'cocoon'
 gem 'kaminari'
 gem 'rest-client'
 gem 'libxml-ruby'
-gem 'sqlite3'
+gem 'pg'
 gem 'puma'
 
 group :development, :test do
